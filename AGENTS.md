@@ -44,7 +44,7 @@
 Current Task:
 
 ```text
-TASK-004 — 이미지 업로드 검증 / 분석용 세로 분할
+TASK-005 — 분석 엔진 + /api/analyze
 ```
 
 Status:

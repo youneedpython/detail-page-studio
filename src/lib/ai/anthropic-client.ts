@@ -12,7 +12,7 @@ export class AnthropicAiClient implements AiClient {
     try {
       const response = await this.client.messages.parse({
         model: AI_MODEL,
-        ["max_tokens"]: request.maxTokens ?? 4096,
+        ["max_tokens"]: request.maxTokens ?? 16000,
         system: request.system,
         messages: [{ role: "user", content: request.content.map((part) => part.type === "text"
           ? { type: "text" as const, text: part.text }

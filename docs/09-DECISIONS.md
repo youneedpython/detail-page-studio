@@ -1,6 +1,6 @@
 # 09. Decisions
 
-승인된 제품 · 기술 · 아키텍처 결정의 최종 기록이다. 상태는 `Human Approved` / `PENDING` / `Rejected` / `Superseded`를 사용한다. 다음 번호: **DEC-009**
+승인된 제품 · 기술 · 아키텍처 결정의 최종 기록이다. 상태는 `Human Approved` / `PENDING` / `Rejected` / `Superseded`를 사용한다. 다음 번호: **DEC-010**
 
 ---
 
@@ -132,3 +132,13 @@
 - TASK-003 추가 (Claude 세션, 2026-11-03): @anthropic-ai/sdk 1.4.0, zod 4.6.7 (dependencies). Structured Output(`messages.parse` + `zodOutputFormat`)에 zod가 필요하다.
 - DEC-004 구현 메모: 서버 측 refusal fallback(`fallbacks`) 파라미터는 `messages.parse`와의 조합이 SDK 문서에 없어 TASK-003에서는 `stop_reason: refusal`을 `AI_REFUSED` 오류로 처리한다. fallback 적용은 실제 API 확인 후 후속 Task에서 재검토한다.
 - TASK-004 추가 (Claude 세션, 2026-11-03): sharp 0.35.5 (dependencies). next가 이미 선택적 의존성으로 같은 Version을 쓰고 있어 새 Native 바이너리 추가가 없다. 분석 조각은 너비 860px / 높이 1400px / 겹침 80px / JPEG 85, 기본 상한 24조각(`AI_MAX_SLICES_PER_ANALYSIS`)으로 정했다. 860px는 스마트스토어 상세 본문 폭 기준이다.
+
+---
+
+## DEC-009 — 상세페이지 분석 기준 (Gate B)
+
+- 상태: `Approved (Claude 세션 결정 2026-11-03, DEC-008 위임)`
+- 결정: docs/13-ANALYSIS-CRITERIA.md의 섹션 역할 11종, 이미지 종류 9종, 고정 체크리스트 10항목, 점수 6항목 × 10점(60점), 개선 제안 3 ~ 7개 규칙을 분석 엔진 기준으로 쓴다.
+- 분석 호출: 조각 전체를 한 번의 Structured Output 호출로 보낸다(effort `high`). 조각별 호출 후 병합하는 방식보다 섹션 경계 / 흐름 판단이 정확하고 구현이 단순하다. 24조각 기준 입력 비용은 분석 1건당 약 USD 0.2 이하로 예상한다.
+- AnthropicAiClient 기본 출력 상한을 4096에서 16000으로 올렸다. Opus 5.5는 thinking이 항상 켜져 있어 출력 상한이 낮으면 결과가 잘린다.
+- 재검토: 실제 분석 결과를 Human이 확인한 뒤 기준을 조정한다.

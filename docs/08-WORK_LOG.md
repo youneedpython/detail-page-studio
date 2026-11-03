@@ -94,3 +94,21 @@
 
 - Run `2026-11-03T05-20-01-988Z-2abe4abe`: Review 2회차 PASS, Orchestrator Verify 성공(Vitest 32개), Draft PR #4 자동 생성.
 - Claude 세션 후속 처리: R-101 반영 — 최소 너비 검사에 EXIF 방향(5 ~ 8은 가로 / 세로 교체)을 적용하고 회전 이미지 Test를 추가했다. R-102(잘못된 조각 상한 설정의 오류 분류)는 TASK-005 API Route에서 서버 설정 오류로 처리한다.
+
+## 2026-11-03 — TASK-005 Executor 구현
+
+- DEC-009의 역할 / 이미지 종류 enum, 고정 체크리스트 10항목, 점수 6항목 및 제안 3~7개를 Schema와 한국어 Prompt에 반영했다. 체크리스트와 점수는 중복 항목도 거부한다.
+- 업로드 검증과 분할 후 전체 조각을 한 번의 high effort 요청으로 전달한다. 서버가 UUID / 생성 시각 / 사용량 비용과 원본 좌표를 붙이며 범위 밖 시작 조각은 유효 경계로 보정한다.
+- multipart Handler는 업로드 순서와 선택 입력 100자 제한을 처리한다. ImageError / AiError를 계약 상태로 매핑하고 설정 / 알 수 없는 오류는 내부 정보 없는 500으로 반환하며 서버에만 기록한다. 분할 상한 환경설정 오류도 서버 오류로 구분한다.
+- 요청 시 생성하는 Node.js Route와 가상 상품 데일리 텀블러 500ml 샘플 응답을 추가했다. 이미지와 조각은 파일에 보관하지 않고 응답에는 좌표만 넣는다. Dependency / API Contract / UI 변경과 실제 API 호출은 없다.
+- Executor 참고 검증: lint, typecheck, 전체 Vitest 5개 파일 / 47개 Test 통과(분석 Test 15개). Fake Route의 이미지 한 장 200 응답, 조각 순서, 경계 보정, 비용, Schema 오류, 각 오류 상태, 내부 메시지 비노출을 확인했다.
+- 별도 npm run build는 Worktree 안의 next/package.json을 찾지 못해 실패했다. 해당 경로에 설치본이 없는 환경 제약이며 Build 성공으로 처리하지 않는다. 개별 검사는 상위 Repository 설치본을 사용했다.
+- bash scripts/verify.sh는 Harness 101개 Test 통과 후 npm ci 단계에 진입했으며 아직 종료 결과를 얻지 못했다. 전체 성공으로 보고하지 않는다. 최종 검증 기준은 Sandbox 밖 Orchestrator Verify다.
+- git diff --check, 추가 코드 / 문서의 Secret 검사와 연속 물음표 / U+FFFD 인코딩 검사를 통과했다.
+- Task는 IN_PROGRESS로 유지한다. Executor 구현 완료는 Task 승인 / Merge 완료를 뜻하지 않는다.
+
+## 2026-11-03 — TASK-005 완료 (Orchestrator + Claude 세션)
+
+- Run `2026-11-03T05-36-16-421Z-4b0872b7`: Review 1회차 PASS(Finding 없음), Orchestrator Verify 성공, Draft PR #5 자동 생성.
+- Claude 세션 Smoke: `AI_CLIENT=fake`로 `next start` 후 가상 이미지(860×3000, `private/` 보관) POST → 200 샘플 리포트(섹션 2, 점수 6, 체크리스트 10, sourceSlice 좌표 정상). 이미지가 아닌 파일을 image/png로 위조 → 400 INVALID_IMAGE.
+- Claude 세션 후속 수정: 조각 라벨이 1부터 세는 번호만 보여 주어 0부터 세는 `sliceIndex`와 어긋날 수 있었다. 라벨에 `sliceIndex=n`을 함께 표시하도록 바꿨다.
