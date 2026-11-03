@@ -34,7 +34,7 @@ TASK-004 — 이미지 업로드 검증 / 분석용 세로 분할
 Status:
 
 ```text
-READY
+IN_PROGRESS
 ```
 
 TASK-001 ~ TASK-003은 DONE이다.
@@ -50,7 +50,7 @@ TASK-001 ~ TASK-003은 DONE이다.
 | TASK-001 | Milestone 1 | Requirements / Gate A | DONE | DEC-001 | Human 승인 2026-11-03 |
 | TASK-002 | Milestone 2 | Project Bootstrap | DONE | TASK-001 (충족) | DEC-002 / DEC-008 |
 | TASK-003 | Milestone 3 | AiClient / Fake / Anthropic / 비용 Guard | DONE | TASK-002 (충족) | DEC-004 / DEC-008 |
-| TASK-004 | Milestone 3 | 이미지 업로드 검증 / 세로 분할 | READY | TASK-003 (충족) | DEC-008 |
+| TASK-004 | Milestone 3 | 이미지 업로드 검증 / 세로 분할 | IN_PROGRESS | TASK-003 (충족) | DEC-008 |
 
 ---
 
@@ -158,7 +158,7 @@ AI 호출 경계(AiClient)를 고정하고 Fake / Anthropic 구현과 월 비용
 ### 상태
 
 ```text
-READY
+IN_PROGRESS
 ```
 
 Milestone 3. 선행: TASK-003.
