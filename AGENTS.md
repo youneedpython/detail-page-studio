@@ -44,13 +44,13 @@
 Current Task:
 
 ```text
-TASK-007 — 생성 엔진 + /api/generate
+TASK-008 — 상품 정보 입력 / 상세페이지 템플릿 / 편집기
 ```
 
 Status:
 
 ```text
-DONE
+READY
 ```
 
 Task 실행 시에는 다음 규칙을 따른다.
