@@ -2,12 +2,18 @@
 import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { BudgetGuard, estimateCostUsd, JsonUsageStore, MemoryUsageStore } from "./index";
 
 describe("cost", () => {
+  beforeEach(() => vi.stubEnv("AI_PROVIDER", "anthropic"));
+  afterEach(() => vi.unstubAllEnvs());
   it("uses approved input and output prices", () => {
     expect(estimateCostUsd({ input: 1_000_000, output: 1_000_000 })).toBe(24);
+    expect(estimateCostUsd({ input: 1_000_000, output: 1_000_000 }, "openai")).toBe(0.6);
+    expect(estimateCostUsd({ input: 1_000_000, output: 1_000_000 }, "anthropic")).toBe(24);
+    vi.stubEnv("AI_PROVIDER", "openai");
+    expect(estimateCostUsd({ input: 1_000_000, output: 1_000_000 })).toBe(0.6);
     expect(estimateCostUsd({ input: 0, output: 0 })).toBe(0);
     expect(() => estimateCostUsd({ input: -1, output: 0 })).toThrow();
   });
