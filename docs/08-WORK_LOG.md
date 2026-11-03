@@ -76,3 +76,21 @@
 - 1차 Run은 Preflight에서 BLOCKED: Task 문서의 토큰 수 필드 표기가 Secret Guard의 할당 규칙에 오탐되었다. 필드명을 input / output으로 바꾸고 Executor 작성 주의를 추가한 뒤 재실행했다.
 - 2차 Run `2026-11-03T05-05-17-264Z-569b6a73`: Review 2회차 PASS, Orchestrator Verify 성공, Draft PR #3 자동 생성.
 - Claude 세션 후속 처리: R-001 반영 — `AI_MONTHLY_BUDGET_USD`가 빈 문자열이면 기본값 30을 쓰도록 수정하고 Test를 추가했다. R-002(계약 밖 SDK 오류는 원형 전달)는 TASK-005 / 007 API Route에서 일반 오류로 감싸 처리한다.
+
+## 2026-11-03 — TASK-004 Executor 구현
+
+- UploadedImage / AnalysisSlice / ImageError와 공개 API를 추가했다. 장수, MIME, 실제 형식, 선언 크기와 Buffer 크기, 최소 너비를 검사한다. metadata 검사에 픽셀 디코딩 검사를 더해 헤더만 남은 손상 이미지도 거부한다.
+- 이미지별 EXIF 회전과 비확대 축소 후 겹침을 둔 세로 조각을 JPEG로 인코딩한다. 알파는 흰 배경으로 처리한다. 원본 좌표는 EXIF 방향을 반영한 원본 표시 좌표이며 축소 전 높이로 환산한다. 전체 조각 수를 먼저 계산해 환경변수 / 옵션 상한을 초과하면 현재 수와 상한을 안내한다.
+- 생성 이미지로 형식 / 장수 / 크기 경계, 위조 / 손상, 축소 좌표와 겹침, 마지막 조각, 여러 장 순번, 상한, 줄무늬 내용, EXIF / 투명 배경을 검증했다. 이미지 파일과 Dependency 변경은 없다. API / UI / 외부 호출은 추가하지 않았다.
+- 참고 검증: lint, typecheck, 전체 Vitest 4개 파일 / 31개 Test 통과(이미지 Test 12개 포함). git diff --check 통과.
+- Executor Sandbox 중간 관찰: `bash scripts/verify.sh`는 Harness 101개 Test 통과를 출력했으나 대기 중 보낸 중단 입력의 영향으로 exit 1 종료했다. npm ci 이후 앱 단계까지 완료한 결과가 아니며 최종 검증 결과가 아니다.
+- Executor Sandbox 중간 관찰: 별도 `npm run build`는 Worktree 내부 next/package.json을 찾지 못해 실패했다. 로컬 node_modules에 next가 없고 개별 검사는 상위 Repository 설치본으로 실행된 설치 경계의 환경 제한이다.
+- 최종 검증 기록(R-004 제공 Orchestrator Verify 결과): Sandbox 밖 검증에서 lint, typecheck, Vitest 31개 Test, next build가 모두 exit 0으로 통과했다. 위 Executor Sandbox 관찰은 중간 참고 기록이며 최종 검증 기준은 이 Orchestrator 결과다. 아래 Rework 변경분은 이후 Orchestrator 검증 대상이다.
+- Rework R-001 ~ R-004: READY 상태 정의 복원과 Current Task IN_PROGRESS 동기화, 분할 계획의 너비 / 높이를 명시한 resize로 반올림 차이 제거, 1721×5999 홀수 비율 회귀 Test 추가, 검증 기록 정정.
+- Rework Executor 참고 검증: 이미지 Test 13개, lint, typecheck, git diff --check 통과. 변경 문서의 연속 물음표 / U+FFFD 검사 통과. `bash scripts/verify.sh`는 실행했으나 Harness 단계에서 아직 종료 결과를 얻지 못했으며 전체 성공으로 보고하지 않는다. Rework 최종 검증 기준은 이후 Orchestrator Verify다.
+- Task는 IN_PROGRESS로 유지한다. Executor 구현 완료는 Task 승인 / Merge 완료를 뜻하지 않는다.
+
+## 2026-11-03 — TASK-004 완료 (Orchestrator + Claude 세션)
+
+- Run `2026-11-03T05-20-01-988Z-2abe4abe`: Review 2회차 PASS, Orchestrator Verify 성공(Vitest 32개), Draft PR #4 자동 생성.
+- Claude 세션 후속 처리: R-101 반영 — 최소 너비 검사에 EXIF 방향(5 ~ 8은 가로 / 세로 교체)을 적용하고 회전 이미지 Test를 추가했다. R-102(잘못된 조각 상한 설정의 오류 분류)는 TASK-005 API Route에서 서버 설정 오류로 처리한다.

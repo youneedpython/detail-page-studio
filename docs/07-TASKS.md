@@ -29,7 +29,7 @@ DONE
 
 ## 3. Current Task
 
-TASK-003 — AiClient / Fake / Anthropic 구현 / 비용 Guard
+TASK-004 — 이미지 업로드 검증 / 분석용 세로 분할
 
 Status:
 
@@ -37,7 +37,7 @@ Status:
 DONE
 ```
 
-TASK-001 ~ TASK-003은 DONE이다. 다음은 TASK-004(이미지 업로드 검증 / 세로 분할)다.
+TASK-001 ~ TASK-004는 DONE이다. 다음은 TASK-005(분석 엔진 + `/api/analyze`)다.
 
 각 Task 절은 "상태 / 목적 / Human Approval 또는 Gate / 완료 조건 / 상세 Task Contract" 형식으로 적는다(형식 규칙: [`docs/tasks/COMMON.md`](tasks/COMMON.md)).
 
@@ -50,6 +50,7 @@ TASK-001 ~ TASK-003은 DONE이다. 다음은 TASK-004(이미지 업로드 검증
 | TASK-001 | Milestone 1 | Requirements / Gate A | DONE | DEC-001 | Human 승인 2026-11-03 |
 | TASK-002 | Milestone 2 | Project Bootstrap | DONE | TASK-001 (충족) | DEC-002 / DEC-008 |
 | TASK-003 | Milestone 3 | AiClient / Fake / Anthropic / 비용 Guard | DONE | TASK-002 (충족) | DEC-004 / DEC-008 |
+| TASK-004 | Milestone 3 | 이미지 업로드 검증 / 세로 분할 | DONE | TASK-003 (충족) | DEC-008 |
 
 ---
 
@@ -149,6 +150,37 @@ AI 호출 경계(AiClient)를 고정하고 Fake / Anthropic 구현과 월 비용
 ### 상세 Task Contract
 
 [`docs/tasks/TASK-003_AI_CLIENT.md`](tasks/TASK-003_AI_CLIENT.md), [`harness/tasks/TASK-003.json`](../harness/tasks/TASK-003.json) (공통 규칙: [`docs/tasks/COMMON.md`](tasks/COMMON.md))
+
+---
+
+## TASK-004 — 이미지 업로드 검증 / 분석용 세로 분할
+
+### 상태
+
+```text
+DONE
+```
+
+Milestone 3. 선행: TASK-003.
+
+- 업로드 검증(장수 / 형식 / 크기 / MIME 위조 / 손상 / 최소 너비)
+- 분석용 세로 분할(860px / 1400px / 겹침 80px / 원본 좌표)
+
+### 목적
+
+업로드한 상세페이지 캡처를 검증하고 Vision 분석용 조각으로 나눈다.
+
+### Human Approval 또는 Gate
+
+- sharp 직접 Dependency 추가: DEC-008에 따라 Claude 세션 결정 (DEC-002 부속)
+
+### 완료 조건
+
+- `bash scripts/verify.sh` 성공, 이미지 파일 Commit 없음
+
+### 상세 Task Contract
+
+[`docs/tasks/TASK-004_IMAGE_SLICING.md`](tasks/TASK-004_IMAGE_SLICING.md), [`harness/tasks/TASK-004.json`](../harness/tasks/TASK-004.json) (공통 규칙: [`docs/tasks/COMMON.md`](tasks/COMMON.md))
 
 ---
 

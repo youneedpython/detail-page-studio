@@ -44,7 +44,7 @@
 Current Task:
 
 ```text
-TASK-003 — AiClient / Fake / Anthropic 구현 / 비용 Guard
+TASK-004 — 이미지 업로드 검증 / 분석용 세로 분할
 ```
 
 Status:
