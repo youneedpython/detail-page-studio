@@ -15,6 +15,7 @@ Task 하나는 두 파일로 정의한다.
 |---|---|---|---|---|
 | [TASK-001](TASK-001_REQUIREMENTS_GATE.md) | Requirements / Gate A | DONE | Claude Code 세션 + Human 결정 | DEC-002 ~ DEC-005 |
 | [TASK-002](TASK-002_PROJECT_BOOTSTRAP.md) | Project Bootstrap | DONE | Orchestrator | DEC-002, Version Gate C |
+| [TASK-003](TASK-003_AI_CLIENT.md) | AiClient / Fake / Anthropic / 비용 Guard | READY | Orchestrator | DEC-004 |
 
 TASK-002 이후는 TASK-001에서 승인된 `docs/06-PLAN.md`를 기준으로 등록한다.
 

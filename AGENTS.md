@@ -44,13 +44,13 @@
 Current Task:
 
 ```text
-TASK-002 — Project Bootstrap (Next.js / TypeScript / Test / verify 앱 단계)
+TASK-003 — AiClient / Fake / Anthropic 구현 / 비용 Guard
 ```
 
 Status:
 
 ```text
-DONE
+READY
 ```
 
 Task 실행 시에는 다음 규칙을 따른다.

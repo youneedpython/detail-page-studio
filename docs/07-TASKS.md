@@ -29,15 +29,15 @@ DONE
 
 ## 3. Current Task
 
-TASK-002 — Project Bootstrap (Next.js / TypeScript / Test / verify 앱 단계)
+TASK-003 — AiClient / Fake / Anthropic 구현 / 비용 Guard
 
 Status:
 
 ```text
-DONE
+READY
 ```
 
-TASK-001, TASK-002는 DONE이다. 다음 Task(TASK-003)는 docs/06-PLAN.md 순서대로 등록한다.
+TASK-001, TASK-002는 DONE이다.
 
 각 Task 절은 "상태 / 목적 / Human Approval 또는 Gate / 완료 조건 / 상세 Task Contract" 형식으로 적는다(형식 규칙: [`docs/tasks/COMMON.md`](tasks/COMMON.md)).
 
@@ -49,6 +49,7 @@ TASK-001, TASK-002는 DONE이다. 다음 Task(TASK-003)는 docs/06-PLAN.md 순�
 |---|---|---|---|---|---|
 | TASK-001 | Milestone 1 | Requirements / Gate A | DONE | DEC-001 | Human 승인 2026-11-03 |
 | TASK-002 | Milestone 2 | Project Bootstrap | DONE | TASK-001 (충족) | DEC-002 / DEC-008 |
+| TASK-003 | Milestone 3 | AiClient / Fake / Anthropic / 비용 Guard | READY | TASK-002 (충족) | DEC-004 / DEC-008 |
 
 ---
 
@@ -116,6 +117,35 @@ DEC-002 기술 스택으로 빈 앱 골격을 만들고 verify에 앱 검증 단
 ### 상세 Task Contract
 
 [`docs/tasks/TASK-002_PROJECT_BOOTSTRAP.md`](tasks/TASK-002_PROJECT_BOOTSTRAP.md), [`harness/tasks/TASK-002.json`](../harness/tasks/TASK-002.json) (공통 규칙: [`docs/tasks/COMMON.md`](tasks/COMMON.md))
+
+---
+
+## TASK-003 — AiClient / Fake / Anthropic 구현 / 비용 Guard
+
+### 상태
+
+```text
+READY
+```
+
+Milestone 3. 선행: TASK-002.
+
+### 목적
+
+AI 호출 경계(AiClient)를 고정하고 Fake / Anthropic 구현과 월 비용 상한 Guard를 만든다.
+
+### Human Approval 또는 Gate
+
+- DEC-004 (Human Approved 2026-11-03), Dependency 설치는 DEC-008에 따라 Claude 세션 결정
+
+### 완료 조건
+
+- `bash scripts/verify.sh` 성공, Test는 네트워크 없이 통과
+- `src/lib/ai` 밖에서 SDK import 없음
+
+### 상세 Task Contract
+
+[`docs/tasks/TASK-003_AI_CLIENT.md`](tasks/TASK-003_AI_CLIENT.md), [`harness/tasks/TASK-003.json`](../harness/tasks/TASK-003.json) (공통 규칙: [`docs/tasks/COMMON.md`](tasks/COMMON.md))
 
 ---
 

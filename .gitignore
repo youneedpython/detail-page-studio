@@ -29,6 +29,9 @@ coverage/
 # Archive
 *.zip
 
+# Local runtime data (AI usage ledger)
+.data/
+
 # Real product images / competitor captures / exports (DEC-007)
 private/
 uploads/
