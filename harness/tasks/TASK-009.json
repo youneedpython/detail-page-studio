@@ -1,0 +1,50 @@
+{
+  "id": "TASK-009",
+  "title": "상세페이지 PNG 내보내기",
+  "task_file": "docs/tasks/TASK-009_PNG_EXPORT.md",
+  "allowed_paths": [
+    "src/",
+    "docs/07-TASKS.md",
+    "docs/08-WORK_LOG.md",
+    "prompts/"
+  ],
+  "forbidden_paths": [
+    "package.json",
+    "package-lock.json",
+    "harness/",
+    "scripts/",
+    ".github/",
+    "docs/tasks/",
+    "docs/09-DECISIONS.md",
+    "docs/11-MULTI-AGENT-ORCHESTRATION-POLICY.md",
+    "docs/12-ORCHESTRATOR-DESIGN.md",
+    "AGENTS.md",
+    ".nvmrc",
+    ".gitignore",
+    ".env.example",
+    ".env.local",
+    ".data/",
+    "private/",
+    "docs/05-API_SPEC.md",
+    "docs/13-ANALYSIS-CRITERIA.md",
+    "docs/14-GENERATION-RULES.md"
+  ],
+  "verify": [
+    {
+      "command": [
+        "bash",
+        "scripts/verify.sh"
+      ],
+      "cwd": "."
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "cwd": "."
+    }
+  ],
+  "max_review_cycles": 3
+}

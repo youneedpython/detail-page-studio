@@ -132,6 +132,7 @@
 - TASK-003 추가 (Claude 세션, 2026-11-03): @anthropic-ai/sdk 1.4.0, zod 4.6.7 (dependencies). Structured Output(`messages.parse` + `zodOutputFormat`)에 zod가 필요하다.
 - DEC-004 구현 메모: 서버 측 refusal fallback(`fallbacks`) 파라미터는 `messages.parse`와의 조합이 SDK 문서에 없어 TASK-003에서는 `stop_reason: refusal`을 `AI_REFUSED` 오류로 처리한다. fallback 적용은 실제 API 확인 후 후속 Task에서 재검토한다.
 - TASK-004 추가 (Claude 세션, 2026-11-03): sharp 0.35.5 (dependencies). next가 이미 선택적 의존성으로 같은 Version을 쓰고 있어 새 Native 바이너리 추가가 없다. 분석 조각은 너비 860px / 높이 1400px / 겹침 80px / JPEG 85, 기본 상한 24조각(`AI_MAX_SLICES_PER_ANALYSIS`)으로 정했다. 860px는 스마트스토어 상세 본문 폭 기준이다.
+- TASK-009 추가 (Claude 세션, 2026-11-03): html-to-image 1.11.13 (dependencies, MIT). 브라우저에서 DOM을 PNG로 변환한다. 서버 헤드리스 브라우저가 필요 없고 내 사진이 서버로 가지 않는다(DEC-007). 출력 폭 860px, pixelRatio 1, 높이 16000px 초과 시 섹션 경계에서 나눠 저장한다(브라우저 Canvas 크기 제한).
 
 ---
 
