@@ -2,11 +2,14 @@
 import Link from "next/link";
 import { useSyncExternalStore } from "react";
 import { listReports } from "../lib/client/report-store";
+import { listDrafts } from "../lib/client/draft-store";
 const subscribe = (notify: () => void) => { window.addEventListener("storage", notify); return () => window.removeEventListener("storage", notify); };
 
 export default function Home() {
   const stored = useSyncExternalStore(subscribe, () => { try { return localStorage.getItem("dps:reports") ?? ""; } catch { return ""; } }, () => "");
   const reports = stored ? listReports() : [];
+  const draftStored = useSyncExternalStore(subscribe, () => { try { return localStorage.getItem("dps:drafts") ?? ""; } catch { return ""; } }, () => "");
+  const drafts = draftStored ? listDrafts() : [];
   return (
     <main className="workspace">
       <header>
@@ -20,7 +23,8 @@ export default function Home() {
       </nav>
       <section className="empty" aria-labelledby="recent-heading">
         <h2 id="recent-heading">최근 작업</h2>
-        {reports.length ? <ul className="recent-list">{reports.map(report => <li key={report.id}><Link href={`/analyze/${encodeURIComponent(report.id)}`}>{report.summary.slice(0, 80)}</Link><p><time dateTime={report.createdAt}>{new Date(report.createdAt).toLocaleDateString("ko-KR")}</time> · 총점 {report.scores.reduce((sum, score) => sum + score.score, 0)} / 60점</p></li>)}</ul> : <><p>아직 최근 작업이 없습니다.</p><Link href="/analyze/sample">예시 리포트 보기</Link></>}
+        {!!drafts.length && <ul className="recent-list">{drafts.map(draft => <li key={draft.id}><span className="badge">초안</span> <Link href={`/create/${encodeURIComponent(draft.id)}`}>{draft.productName}</Link><p><time dateTime={draft.updatedAt}>{new Date(draft.updatedAt).toLocaleDateString("ko-KR")}</time></p></li>)}</ul>}
+        {reports.length ? <ul className="recent-list">{reports.map(report => <li key={report.id}><span className="badge">리포트</span> <Link href={`/analyze/${encodeURIComponent(report.id)}`}>{report.summary.slice(0, 80)}</Link><p><time dateTime={report.createdAt}>{new Date(report.createdAt).toLocaleDateString("ko-KR")}</time> · 총점 {report.scores.reduce((sum, score) => sum + score.score, 0)} / 60점</p></li>)}</ul> : <>{!drafts.length && <p>아직 최근 작업이 없습니다.</p>}<Link href="/analyze/sample">예시 리포트 보기</Link></>}
       </section>
     </main>
   );

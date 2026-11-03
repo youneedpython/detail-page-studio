@@ -29,7 +29,7 @@ DONE
 
 ## 3. Current Task
 
-TASK-007 — 생성 엔진 + /api/generate
+TASK-008 — 상품 정보 입력 / 상세페이지 템플릿 / 편집기
 
 Status:
 
@@ -37,7 +37,7 @@ Status:
 DONE
 ```
 
-TASK-001 ~ TASK-007은 DONE이다. 다음은 TASK-008(템플릿 + 편집기)이다.
+TASK-001 ~ TASK-008은 DONE이다. 분석 → 초안 생성 → 편집까지 동작한다. 다음은 TASK-009(PNG 내보내기)다.
 
 각 Task 절은 "상태 / 목적 / Human Approval 또는 Gate / 완료 조건 / 상세 Task Contract" 형식으로 적는다(형식 규칙: [`docs/tasks/COMMON.md`](tasks/COMMON.md)).
 
@@ -54,6 +54,7 @@ TASK-001 ~ TASK-007은 DONE이다. 다음은 TASK-008(템플릿 + 편집기)이�
 | TASK-005 | Milestone 4 | 분석 엔진 + /api/analyze | DONE | TASK-003, TASK-004 (충족) | DEC-009 (Gate B) |
 | TASK-006 | Milestone 4 | 분석 입력 / 리포트 화면 | DONE | TASK-005 (충족) | DEC-008 |
 | TASK-007 | Milestone 5 | 생성 엔진 + /api/generate | DONE | TASK-003, TASK-005 (충족) | DEC-010 (Gate B) |
+| TASK-008 | Milestone 5 | 상품 정보 입력 / 템플릿 / 편집기 | DONE | TASK-006, TASK-007 (충족) | DEC-008 |
 
 ---
 
@@ -279,6 +280,37 @@ Milestone 5. 선행: TASK-003, TASK-005.
 ### 상세 Task Contract
 
 [`docs/tasks/TASK-007_GENERATION_ENGINE.md`](tasks/TASK-007_GENERATION_ENGINE.md), [`harness/tasks/TASK-007.json`](../harness/tasks/TASK-007.json) (공통 규칙: [`docs/tasks/COMMON.md`](tasks/COMMON.md))
+
+---
+
+## TASK-008 — 상품 정보 입력 / 상세페이지 템플릿 / 편집기
+
+### 상태
+
+```text
+DONE
+```
+
+Milestone 5. 선행: TASK-006, TASK-007.
+
+- `/create` 상품 정보 / 내 사진(IndexedDB) / 참고 리포트 선택, `/create/[id]` 편집기
+- 상세페이지 템플릿 6종(860px), 홈 최근 초안
+
+### 목적
+
+내 상품 정보와 사진으로 초안을 생성하고 템플릿 미리보기에서 섹션 단위로 편집한다.
+
+### Human Approval 또는 Gate
+
+- 없음 (DEC-008). 내 사진은 브라우저 IndexedDB에만 저장(DEC-007).
+
+### 완료 조건
+
+- `bash scripts/verify.sh` 성공, 390 / 768 / 1280 화면 캡처
+
+### 상세 Task Contract
+
+[`docs/tasks/TASK-008_EDITOR.md`](tasks/TASK-008_EDITOR.md), [`harness/tasks/TASK-008.json`](../harness/tasks/TASK-008.json) (공통 규칙: [`docs/tasks/COMMON.md`](tasks/COMMON.md))
 
 ---
 
