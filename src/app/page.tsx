@@ -21,7 +21,7 @@ export default function Home() {
         <Link className="action" href="/analyze">경쟁 상세페이지 분석 <span aria-hidden="true">→</span></Link>
         <Link className="action" href="/create">내 상세페이지 만들기 <span aria-hidden="true">→</span></Link>
       </nav>
-      <section aria-labelledby="workflow-heading">
+      <section className="workflow" aria-labelledby="workflow-heading">
         <h2 id="workflow-heading">사용 순서</h2>
         <ol>
           <li>경쟁 상세페이지 캡처 업로드</li>

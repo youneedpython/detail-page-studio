@@ -31,7 +31,7 @@ Node.js 24를 사용합니다(정확한 버전은 [.nvmrc](.nvmrc)). `npm ci` �
 
 PC Chrome에서 개발자 도구 → 명령 메뉴 → `Capture full size screenshot`을 사용합니다. 모바일에서는 스크롤 캡처 기능을 사용하세요. 개인정보와 불필요한 영역은 제외하고 본인이 열람한 페이지만 업로드하세요. 서버는 스마트스토어 페이지를 자동 수집하지 않습니다.
 
-기존 가상 상품 화면 예시입니다(이번 변경 전 캡처).
+가상 상품으로 찍은 화면 예시입니다.
 
 ![분석 입력](docs/images/task-006/analyze-390.png)
 ![분석 리포트](docs/images/task-006/report-768.png)
@@ -49,6 +49,8 @@ PC Chrome에서 개발자 도구 → 명령 메뉴 → `Capture full size screen
 
 실제 AI는 Anthropic 사용 비용이 발생하며 구독 CLI 로그인과 별도입니다. 서버는 `.data/usage.json`에 사용량을 기록하고 월 상한(기본 USD 30)에 도달하면 다음 요청을 거부합니다. 요청 전 누적 사용액 기준이므로 진행 중 요청 비용까지 엄격하게 제한하지는 못합니다. 파일 삭제나 여러 서버 실행 시 집계가 달라질 수 있습니다. 상한 인상은 Human 승인 대상입니다. 체험 모드는 실제 AI 비용이 발생하지 않습니다.
 
+## 개발 문서
+
 - 진행 상태: [docs/07-TASKS.md](docs/07-TASKS.md)
 - 작업 규칙: [AGENTS.md](AGENTS.md)
 - Harness 실행: [docs/12-ORCHESTRATOR-DESIGN.md](docs/12-ORCHESTRATOR-DESIGN.md)
@@ -58,15 +60,17 @@ PC Chrome에서 개발자 도구 → 명령 메뉴 → `Capture full size screen
 `next-env.d.ts`는 Next.js가 생성하며 Git에서 제외합니다. 테스트는 Fake를 사용하며 실제 외부 AI를 호출하지 않습니다.
 
 개별 검사: `npm run lint`, `npm run typecheck`, `npm test`, `npm run build`.
-운영 모드는 Build 후 `npm start`로 실행한다.
+운영 모드는 Build 후 `npm start`로 실행합니다.
 
 ```bash
 bash scripts/verify.sh     # 또는 PowerShell: ./scripts/verify.ps1
 ```
 
-전체 검증은 Harness Test 이후 npm ci → lint → typecheck → test → build 순서로 실행한다.
+전체 검증은 Harness Test 이후 npm ci → lint → typecheck → test → build 순서로 실행합니다.
 
 - [프로젝트 범위](docs/01-PROJECT.md), [승인 계획](docs/06-PLAN.md), [승인 결정](docs/09-DECISIONS.md)
 - [작업 기록](docs/08-WORK_LOG.md), [Multi-Agent 정책](docs/11-MULTI-AGENT-ORCHESTRATION-POLICY.md)
+
+## 다음 단계
 
 2단계에는 네이버 커머스 API로 **내 스토어** 상품을 가져와 진단·비교하는 기능을 계획하고 있습니다. 커머스 API 연동, 로그인과 배포는 현재 범위 밖입니다.

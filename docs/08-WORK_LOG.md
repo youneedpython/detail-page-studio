@@ -225,3 +225,18 @@
 - bash scripts/verify.sh 실행에서 Harness 테스트 101개가 통과했다. 이어진 npm ci는 기존 의존성의 peer 경고를 출력하고 설치 단계에서 대기하여 전체 검증 완료를 확인하지 못했다. 기본 테스트의 Sandbox 쓰기 제한과 Build 의존성 경로 문제를 포함해 Sandbox 밖 Orchestrator 결과로 최종 검증해야 한다.
 - 화면 이미지는 TASK-010의 새 이미지 추가 금지 지시에 따라 기존 docs/images 경로만 README에서 연결했다. 신규 캡처나 허용 경로 밖 파일은 추가하지 않았다.
 - 상태: IN_PROGRESS 유지. Executor 구현 완료이며 Task 완료 승인 / Git 작업은 수행하지 않았다.
+
+## 2026-11-03 — TASK-010 완료 / Harness rename 버그 수정 (Orchestrator + Claude 세션)
+
+- Run `2026-11-03T07-00-35-781Z-a3d8ff6b`: Review 1회차 PASS, Orchestrator Verify 성공(Harness 101, Vitest 105, build). 위 Executor 기록의 npm ci 대기 / build 중단 / EPERM은 Sandbox 중간 기록이며 최종 결과는 이 Verify다(R-001).
+- **Harness 버그**: Git 단계가 `Staged allowlist mismatch`로 BLOCKED. 원인은 `vitest.config.ts → .mts` 이름 변경이었다. `git diff --cached --name-only`는 rename 감지로 새 경로만 보여 주는데, 검토 목록에는 이전 / 새 경로가 모두 있어 항상 불일치가 난다. 파일 이름을 바꾸는 모든 Task가 막히는 문제다.
+  - 조치: `scripts/orchestrator/git-automation.mjs`의 staged 비교에 `--no-renames`를 추가하고 rename 회귀 Test를 추가했다(Harness Test 102).
+  - 이번 Run은 정지 직전 Source에 검토된 변경을 정확히 stage해 둔 상태였다. staged 목록(rename 미감지)과 검토 목록이 같음을 확인한 뒤 Claude 세션이 Task Commit을 만들고 PR을 열었다.
+- Claude 세션 후속 처리: README 문구 정리(제목 구분, 어색한 캡처 설명 수정), 홈 "사용 순서" 목록 번호와 간격 복원(Tailwind 기본 스타일이 목록 번호를 지움).
+- Smoke(`next start`): API Key / AI_CLIENT 없음 → `/api/generate` 503 AI_NOT_CONFIGURED(환경값 미노출), `AI_CLIENT=fake` → 200, 체험 모드 배너 표시.
+- R-002(새 파일 CRLF): `.gitattributes`의 `* text=auto`로 Commit 시 LF로 정규화된다.
+
+![TASK-010 홈 390](images/task-010/home-390.png)
+![TASK-010 홈 1280](images/task-010/home-1280.png)
+![TASK-010 체험 모드 390](images/task-010/analyze-demo-390.png)
+![TASK-010 체험 모드 1280](images/task-010/analyze-demo-1280.png)

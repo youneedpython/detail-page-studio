@@ -50,7 +50,7 @@ TASK-010 — 1단계 MVP 정리
 Status:
 
 ```text
-READY
+DONE
 ```
 
 Task 실행 시에는 다음 규칙을 따른다.

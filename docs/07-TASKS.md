@@ -34,10 +34,10 @@ TASK-010 — 1단계 MVP 정리
 Status:
 
 ```text
-IN_PROGRESS
+DONE
 ```
 
-TASK-001 ~ TASK-009는 DONE이다. 1단계 흐름(분석 → 초안 생성 → 편집 → PNG 내보내기)이 모두 동작한다.
+TASK-001 ~ TASK-010은 DONE이다. **1단계 MVP 완료**: 분석 → 초안 생성 → 편집 → PNG 내보내기. 다음은 실제 AI로 품질 확인(Human API Key 필요) 후 2단계(내 스토어 / 커머스 API) 계획이다.
 
 각 Task 절은 "상태 / 목적 / Human Approval 또는 Gate / 완료 조건 / 상세 Task Contract" 형식으로 적는다(형식 규칙: [`docs/tasks/COMMON.md`](tasks/COMMON.md)).
 
@@ -56,7 +56,7 @@ TASK-001 ~ TASK-009는 DONE이다. 1단계 흐름(분석 → 초안 생성 → �
 | TASK-007 | Milestone 5 | 생성 엔진 + /api/generate | DONE | TASK-003, TASK-005 (충족) | DEC-010 (Gate B) |
 | TASK-008 | Milestone 5 | 상품 정보 입력 / 템플릿 / 편집기 | DONE | TASK-006, TASK-007 (충족) | DEC-008 |
 | TASK-009 | Milestone 6 | 상세페이지 PNG 내보내기 | DONE | TASK-008 (충족) | DEC-008 |
-| TASK-010 | Milestone 6 | 1단계 MVP 정리 | IN_PROGRESS | TASK-009 (충족) | DEC-008 |
+| TASK-010 | Milestone 6 | 1단계 MVP 정리 | DONE | TASK-009 (충족) | DEC-008 |
 
 ---
 
@@ -354,10 +354,13 @@ Executor 구현 완료. Orchestrator 검증 / Review 및 Claude 세션의 실제
 ### 상태
 
 ```text
-IN_PROGRESS
+DONE
 ```
 
 Milestone 6. 선행: TASK-009.
+
+- API Key 미설정 시 503 AI_NOT_CONFIGURED, 체험 모드 배너, 홈 사용 순서 안내, README 전면 갱신
+- Orchestrator Git 단계 rename 처리 버그 수정
 
 ### 목적
 
