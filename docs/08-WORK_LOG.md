@@ -159,3 +159,14 @@
 - Run `2026-11-03T06-09-12-653Z-20ea9883`: Review 1회차 PASS, Orchestrator Verify 성공(Harness 101, lint, typecheck, Vitest 76, build). 위 Executor 기록의 npm ci 대기 / build 실패는 Sandbox 중간 기록이며 최종 결과는 이 Verify다(F-001).
 - Claude 세션 Smoke(`AI_CLIENT=fake`, `next start`): 정상 요청 → 200 초안(템플릿 6종, hero에 내 사진 0번 배치, warnings 없음), 빈 상품명 → 400 INVALID_REQUEST.
 - F-002: 공통 오류 함수로 옮기면서 analyze 오류 문구가 일반화되었다(코드 / 상태는 동일). 화면 문구는 TASK-006 labels의 코드별 안내를 쓰므로 영향이 없다.
+
+## 2026-11-03 — TASK-008 Executor 구현
+
+- 상품명 / 특징 / 타깃 / 가격대와 내 사진 설명, 선택한 저장 리포트 또는 예시 리포트로 생성 API를 호출한다. 사진은 브라우저에 남기고 요청에는 순번과 설명만 포함한다. 진행 / 취소 / 오류, 참고 리포트 사전 선택, 사진 순서 변경 / 삭제를 제공한다.
+- 초안은 사진을 제외하고 localStorage에 최신 수정순 최대 20개 저장한다. 내 사진 Blob과 설명은 IndexedDB의 dps / photos에 저장한다. 접근 또는 쓰기 실패 시 메모리로 대체하고 새로고침 시 소실 안내를 표시한다.
+- 860px 템플릿 6종, 사진 가이드 자리 표시, 스펙 2열 표, 확인 필요 문구 강조와 내보내기용 data-detail-page 루트를 구현했다. 편집기는 섹션 순서 / 추가 / 삭제, 문구 / 템플릿 / 내 사진 변경, 즉시 미리보기, 500ms 자동 저장과 저장 실패 안내를 제공한다. 1024px 미만에서는 섹션 / 미리보기 / 편집 탭을 사용한다.
+- 홈에서 초안과 리포트를 구분하며 기존 리포트의 제작 연결 경로를 유지했다. PNG 내보내기는 TASK-009 범위이므로 비활성 안내만 제공한다.
+- Executor 최종 참고 검증: lint / typecheck, 전체 Vitest 14개 파일 88개 Test 및 git diff --check 통과. 요청에 사진 파일이 없는지, 사전 리포트 선택, 사진 정렬 / 삭제와 취소 후 늦은 응답 무시, 초안 저장 예외, 템플릿 / 표 / 강조, 섹션 편집과 자동 저장 / 실패 및 길이 안내를 확인했다.
+- bash scripts/verify.sh는 Harness 101개 Test 통과 후 npm ci에서 npm 레지스트리 접근 EACCES로 중단됐다. 별도 build는 worktree 내부 next/package.json 설치본을 찾지 못해 실패했다. 개별 앱 검사는 상위 Repository 설치본으로 실행되었다. 전체 성공으로 처리하지 않으며, 최종 검증 기준은 Sandbox 밖 Orchestrator Verify다. 재설치나 권한 우회는 하지 않았다.
+- 변경 문서와 신규 파일의 UTF-8을 직접 읽어 연속 물음표 치환 흔적과 U+FFFD가 없음을 확인했다.
+- Task는 IN_PROGRESS로 유지한다. Executor DONE은 Task 완료 승인 / Merge를 대신하지 않는다. 허용 경로 밖의 화면 캡처는 Contract에 따라 Claude 세션이 입력 / 편집기 각 390 / 768 / 1280 폭에서 수행하고 docs/images/task-008/에 추가한 뒤 이 기록에 연결해야 한다.

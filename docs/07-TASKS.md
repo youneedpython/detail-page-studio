@@ -34,7 +34,7 @@ TASK-008 — 상품 정보 입력 / 상세페이지 템플릿 / 편집기
 Status:
 
 ```text
-READY
+IN_PROGRESS
 ```
 
 TASK-001 ~ TASK-007은 DONE이다.
@@ -54,7 +54,7 @@ TASK-001 ~ TASK-007은 DONE이다.
 | TASK-005 | Milestone 4 | 분석 엔진 + /api/analyze | DONE | TASK-003, TASK-004 (충족) | DEC-009 (Gate B) |
 | TASK-006 | Milestone 4 | 분석 입력 / 리포트 화면 | DONE | TASK-005 (충족) | DEC-008 |
 | TASK-007 | Milestone 5 | 생성 엔진 + /api/generate | DONE | TASK-003, TASK-005 (충족) | DEC-010 (Gate B) |
-| TASK-008 | Milestone 5 | 상품 정보 입력 / 템플릿 / 편집기 | READY | TASK-006, TASK-007 (충족) | DEC-008 |
+| TASK-008 | Milestone 5 | 상품 정보 입력 / 템플릿 / 편집기 | IN_PROGRESS | TASK-006, TASK-007 (충족) | DEC-008 |
 
 ---
 
@@ -288,7 +288,7 @@ Milestone 5. 선행: TASK-003, TASK-005.
 ### 상태
 
 ```text
-READY
+IN_PROGRESS
 ```
 
 Milestone 5. 선행: TASK-006, TASK-007.
