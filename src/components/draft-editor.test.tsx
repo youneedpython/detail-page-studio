@@ -2,6 +2,8 @@ import { act, cleanup, fireEvent, render, screen, within } from "@testing-librar
 import { afterEach, beforeEach, expect, test, vi } from "vitest";
 import { DraftEditor } from "./draft-editor";
 import * as storage from "../lib/client/draft-store";
+import { exportPng } from "../lib/client/export-png";
+vi.mock("../lib/client/export-png", () => ({ exportPng: vi.fn() }));
 vi.mock("../lib/client/photo-store", async importOriginal => { const actual = await importOriginal<typeof import("../lib/client/photo-store")>(); return { ...actual, getPhotoStore: async () => new actual.MemoryPhotoStore() }; });
 const fixture: storage.SavedDraft = { id: "draft", productName: "가상 상품", createdAt: "2026-11-03T00:00:00.000Z", updatedAt: "2026-11-03T00:00:00.000Z", sections: [{ id: "a", role: "hook", template: "hero", headline: "첫 제목", body: "첫 본문", bullets: [], imageSlot: null, imageGuide: "정면" }, { id: "b", role: "spec", template: "spec-table", headline: "스펙", body: "", bullets: [], imageSlot: null, imageGuide: "구성" }], warnings: ["검토 필요"], usage: { input: 0, output: 0, estimatedCostUsd: 0 } };
 beforeEach(() => { localStorage.clear(); storage.saveDraft(fixture); });
@@ -17,9 +19,34 @@ test("경고, 즉시 미리보기와 500ms 자동 저장, 순서 / 삭제 / 추�
   expect(within(screen.getAllByRole("list")[1]).getAllByRole("listitem")[0]).toHaveTextContent("스펙");
   fireEvent.click(screen.getByRole("button", { name: "섹션 1 삭제" })); fireEvent.click(screen.getByRole("button", { name: "섹션 추가" }));
   expect(screen.getByRole("heading", { name: "새 섹션" })).toBeInTheDocument();
-  expect(screen.getByRole("button", { name: "PNG 내보내기" })).toBeDisabled();
+  expect(screen.getByRole("button", { name: "전체 이미지 내보내기" })).toBeEnabled();
 });
 test("없는 초안은 빈 상태", async () => { render(<DraftEditor id="missing" />); expect(await screen.findByText("초안이 없습니다")).toBeInTheDocument(); });
+test("내보내기 확인 취소, 진행 중 비활성, 분할 안내", async () => {
+  Object.defineProperty(HTMLDialogElement.prototype, "showModal", { configurable: true, value: function(this: HTMLDialogElement) { this.setAttribute("open", ""); } });
+  Object.defineProperty(HTMLDialogElement.prototype, "close", { configurable: true, value: function(this: HTMLDialogElement) { this.removeAttribute("open"); } });
+  vi.mocked(exportPng).mockReset();
+  render(<DraftEditor id="draft" />); await screen.findByText("새로고침하면 사진이 사라집니다");
+  fireEvent.click(screen.getByRole("button", { name: "전체 이미지 내보내기" }));
+  expect(screen.getByRole("dialog")).toHaveTextContent("사진 없는 섹션 2개");
+  fireEvent.click(screen.getByRole("button", { name: "취소" })); expect(exportPng).not.toHaveBeenCalled();
+  let finish!: (total: number) => void;
+  vi.mocked(exportPng).mockReturnValue(new Promise(resolve => { finish = resolve; }));
+  fireEvent.click(screen.getByRole("button", { name: "전체 이미지 내보내기" }));
+  fireEvent.click(screen.getByRole("button", { name: "그대로 내보내기" }));
+  expect(screen.getByText("이미지를 만드는 중")).toBeInTheDocument();
+  expect(screen.getByRole("button", { name: "섹션별 내보내기" })).toBeDisabled();
+  expect(exportPng).toHaveBeenCalledWith(expect.any(HTMLElement), "가상 상품", "all");
+  await act(async () => finish(2)); expect(screen.getByText("길이가 길어 2장으로 나눠 저장했습니다")).toBeInTheDocument();
+});
+test("확인 문구가 없으면 즉시 내보내고 실패를 안내한다", async () => {
+  storage.saveDraft({ ...fixture, sections: fixture.sections.map(section => ({ ...section, imageSlot: 0 })) });
+  vi.mocked(exportPng).mockRejectedValue(new Error("failed"));
+  render(<DraftEditor id="draft" />); await screen.findByText("새로고침하면 사진이 사라집니다");
+  fireEvent.click(screen.getByRole("button", { name: "섹션별 내보내기" }));
+  expect(await screen.findByText("이미지를 만들지 못했습니다. 브라우저를 새로고침한 뒤 다시 시도해 주세요.")).toBeInTheDocument();
+  expect(screen.getByRole("button", { name: "전체 이미지 내보내기" })).toBeEnabled();
+});
 test("길이 초과와 저장 실패를 표시하고 편집 문구는 보존한다", async () => {
   render(<DraftEditor id="draft" />); await screen.findByText("새로고침하면 사진이 사라집니다");
   vi.useFakeTimers(); vi.spyOn(storage, "saveDraft").mockReturnValue(false);

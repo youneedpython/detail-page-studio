@@ -188,3 +188,13 @@
 ![TASK-008 편집기 768](images/task-008/editor-768.png)
 ![TASK-008 편집기 1280](images/task-008/editor-1280.png)
 ![TASK-008 홈 1280](images/task-008/home-1280.png)
+
+## TASK-009 — 상세페이지 PNG 내보내기 (Executor)
+
+- 구현: 860px 폭의 화면 밖 DetailPage를 PNG로 변환하며 전체 / 높이 기준 자동 분할 / 섹션별 다운로드를 제공한다.
+- 확인 필요 문구와 빈 사진 슬롯 개수를 표시하는 취소 가능한 대화상자, 진행 중 비활성 상태와 실패 안내를 추가했다.
+- 내보내는 동안 사진 자리 표시를 숨기고 확인 필요 mark는 유지한다. Blob 다운로드 후 Object URL을 해제하며 파일 사이에 300ms 간격을 둔다.
+- Test: 분할 경계 / 큰 단일 섹션 / 순서 / 파일명 / 문구 개수, mock DOM 변환과 다운로드 / 오류 복원, 편집기 확인 / 취소 / 진행 / 실패를 검증한다.
+- Verification: 관련 3개 Test 파일 10개 및 앱 전체 16개 파일 96개 Test 통과. typecheck / lint 통과. 초기 편집기 테스트에서 UI 연결 누락과 jsdom dialog mock 누락을 발견하여 수정했다. bash scripts/verify.sh는 Harness Test 101개 통과 후 npm ci의 registry 접근 EACCES로 중단됐다. 별도 build는 worktree 내부 node_modules/next가 없어 Turbopack 경로 해석 오류로 중단됐다(상위 Repository 의존성으로 Test는 실행 가능). git diff --check와 변경 문서의 연속 물음표 / U+FFFD 검사를 통과했다. Sandbox 밖 최종 Orchestrator 결과가 검증 기준이다.
+- 후속: Claude 세션이 실제 브라우저 저장 결과와 Mobile 390px / Tablet 768px / Desktop 1280px 편집기 캡처를 확인하고 기록한다. Executor 허용 경로에 docs/images가 없어 캡처를 추가하지 않았다.
+- 상태: IN_PROGRESS 유지. Git 작업과 Task 완료 승인은 수행하지 않았다.

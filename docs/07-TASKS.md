@@ -34,7 +34,7 @@ TASK-009 — 상세페이지 PNG 내보내기
 Status:
 
 ```text
-READY
+IN_PROGRESS
 ```
 
 TASK-001 ~ TASK-008은 DONE이다. 분석 → 초안 생성 → 편집까지 동작한다.
@@ -55,7 +55,7 @@ TASK-001 ~ TASK-008은 DONE이다. 분석 → 초안 생성 → 편집까지 동
 | TASK-006 | Milestone 4 | 분석 입력 / 리포트 화면 | DONE | TASK-005 (충족) | DEC-008 |
 | TASK-007 | Milestone 5 | 생성 엔진 + /api/generate | DONE | TASK-003, TASK-005 (충족) | DEC-010 (Gate B) |
 | TASK-008 | Milestone 5 | 상품 정보 입력 / 템플릿 / 편집기 | DONE | TASK-006, TASK-007 (충족) | DEC-008 |
-| TASK-009 | Milestone 6 | 상세페이지 PNG 내보내기 | READY | TASK-008 (충족) | DEC-008 |
+| TASK-009 | Milestone 6 | 상세페이지 PNG 내보내기 | IN_PROGRESS | TASK-008 (충족) | DEC-008 |
 
 ---
 
@@ -320,10 +320,12 @@ Milestone 5. 선행: TASK-006, TASK-007.
 ### 상태
 
 ```text
-READY
+IN_PROGRESS
 ```
 
 Milestone 6. 선행: TASK-008.
+
+Executor 구현 완료. Orchestrator 검증 / Review 및 Claude 세션의 실제 브라우저 내보내기 / 화면 캡처를 기다린다. Task 완료 승인은 아직 이루어지지 않았다.
 
 ### 목적
 
