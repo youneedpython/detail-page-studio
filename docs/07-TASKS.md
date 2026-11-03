@@ -29,15 +29,15 @@ DONE
 
 ## 3. Current Task
 
-TASK-004 — 이미지 업로드 검증 / 분석용 세로 분할
+TASK-005 — 분석 엔진 + /api/analyze
 
 Status:
 
 ```text
-DONE
+READY
 ```
 
-TASK-001 ~ TASK-004는 DONE이다. 다음은 TASK-005(분석 엔진 + `/api/analyze`)다.
+TASK-001 ~ TASK-004는 DONE이다.
 
 각 Task 절은 "상태 / 목적 / Human Approval 또는 Gate / 완료 조건 / 상세 Task Contract" 형식으로 적는다(형식 규칙: [`docs/tasks/COMMON.md`](tasks/COMMON.md)).
 
@@ -51,6 +51,7 @@ TASK-001 ~ TASK-004는 DONE이다. 다음은 TASK-005(분석 엔진 + `/api/anal
 | TASK-002 | Milestone 2 | Project Bootstrap | DONE | TASK-001 (충족) | DEC-002 / DEC-008 |
 | TASK-003 | Milestone 3 | AiClient / Fake / Anthropic / 비용 Guard | DONE | TASK-002 (충족) | DEC-004 / DEC-008 |
 | TASK-004 | Milestone 3 | 이미지 업로드 검증 / 세로 분할 | DONE | TASK-003 (충족) | DEC-008 |
+| TASK-005 | Milestone 4 | 분석 엔진 + /api/analyze | READY | TASK-003, TASK-004 (충족) | DEC-009 (Gate B) |
 
 ---
 
@@ -181,6 +182,35 @@ Milestone 3. 선행: TASK-003.
 ### 상세 Task Contract
 
 [`docs/tasks/TASK-004_IMAGE_SLICING.md`](tasks/TASK-004_IMAGE_SLICING.md), [`harness/tasks/TASK-004.json`](../harness/tasks/TASK-004.json) (공통 규칙: [`docs/tasks/COMMON.md`](tasks/COMMON.md))
+
+---
+
+## TASK-005 — 분석 엔진 + /api/analyze
+
+### 상태
+
+```text
+READY
+```
+
+Milestone 4. 선행: TASK-003, TASK-004.
+
+### 목적
+
+업로드 캡처를 분석해 AnalysisReport를 반환하는 엔진과 API Route를 만든다.
+
+### Human Approval 또는 Gate
+
+- Gate B 분석 기준: DEC-009 (docs/13-ANALYSIS-CRITERIA.md, DEC-008 위임으로 Claude 세션 결정)
+
+### 완료 조건
+
+- `bash scripts/verify.sh` 성공
+- `AI_CLIENT=fake`에서 `/api/analyze`가 샘플 리포트를 반환
+
+### 상세 Task Contract
+
+[`docs/tasks/TASK-005_ANALYSIS_ENGINE.md`](tasks/TASK-005_ANALYSIS_ENGINE.md), [`harness/tasks/TASK-005.json`](../harness/tasks/TASK-005.json) (공통 규칙: [`docs/tasks/COMMON.md`](tasks/COMMON.md))
 
 ---
 

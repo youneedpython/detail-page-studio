@@ -47,7 +47,7 @@ describe("AnthropicAiClient", () => {
     const sent = parse.mock.calls[0][0];
     expect(Object.keys(sent).sort()).toEqual(["max_tokens", "messages", "model", "output_config", "system"]);
     expect(sent.model).toBe(AI_MODEL);
-    expect(sent.max_tokens).toBe(4096);
+    expect(sent.max_tokens).toBe(16000);
     expect(sent.system).toBe(request.system);
     expect(sent.output_config).toMatchObject({ effort: "medium", format: { type: "json_schema", schema: { type: "object" } } });
     expect(sent.messages).toEqual([{ role: "user", content: [request.content[0],

@@ -8,7 +8,8 @@
   - `images`: 1 ~ 10개, JPG / PNG / WEBP, 파일당 최대 20MB, 업로드 순서 = 페이지 위→아래
   - `productName`, `price`, `category`: 선택
 - 응답 200: `AnalysisReport`
-- 오류: 400 `INVALID_IMAGE`, 413 `TOO_LARGE`, 429 `BUDGET_EXCEEDED`, 502 `AI_UNAVAILABLE`, 504 `AI_TIMEOUT`
+- 오류: 400 `INVALID_IMAGE`, 413 `TOO_LARGE`, 422 `AI_REFUSED`, 429 `BUDGET_EXCEEDED`, 502 `AI_UNAVAILABLE` / `AI_INVALID_OUTPUT`, 504 `AI_TIMEOUT`, 500 `INTERNAL_ERROR`(내부 메시지 미노출)
+- 분석 기준: docs/13-ANALYSIS-CRITERIA.md
 
 ```ts
 type SectionRole =
