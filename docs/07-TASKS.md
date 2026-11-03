@@ -29,7 +29,7 @@ DONE
 
 ## 3. Current Task
 
-TASK-005 — 분석 엔진 + /api/analyze
+TASK-006 — 분석 입력 / 리포트 화면
 
 Status:
 
@@ -37,7 +37,7 @@ Status:
 DONE
 ```
 
-TASK-001 ~ TASK-005는 DONE이다. 다음은 TASK-006(분석 입력 / 리포트 화면)이다.
+TASK-001 ~ TASK-006은 DONE이다. 분석 기능(1단계 전반부)이 동작한다. 다음은 TASK-007(생성 엔진 + `/api/generate`)이다.
 
 각 Task 절은 "상태 / 목적 / Human Approval 또는 Gate / 완료 조건 / 상세 Task Contract" 형식으로 적는다(형식 규칙: [`docs/tasks/COMMON.md`](tasks/COMMON.md)).
 
@@ -52,6 +52,7 @@ TASK-001 ~ TASK-005는 DONE이다. 다음은 TASK-006(분석 입력 / 리포트 
 | TASK-003 | Milestone 3 | AiClient / Fake / Anthropic / 비용 Guard | DONE | TASK-002 (충족) | DEC-004 / DEC-008 |
 | TASK-004 | Milestone 3 | 이미지 업로드 검증 / 세로 분할 | DONE | TASK-003 (충족) | DEC-008 |
 | TASK-005 | Milestone 4 | 분석 엔진 + /api/analyze | DONE | TASK-003, TASK-004 (충족) | DEC-009 (Gate B) |
+| TASK-006 | Milestone 4 | 분석 입력 / 리포트 화면 | DONE | TASK-005 (충족) | DEC-008 |
 
 ---
 
@@ -214,6 +215,37 @@ Milestone 4. 선행: TASK-003, TASK-004.
 ### 상세 Task Contract
 
 [`docs/tasks/TASK-005_ANALYSIS_ENGINE.md`](tasks/TASK-005_ANALYSIS_ENGINE.md), [`harness/tasks/TASK-005.json`](../harness/tasks/TASK-005.json) (공통 규칙: [`docs/tasks/COMMON.md`](tasks/COMMON.md))
+
+---
+
+## TASK-006 — 분석 입력 / 리포트 화면
+
+### 상태
+
+```text
+DONE
+```
+
+Milestone 4. 선행: TASK-005.
+
+- `/analyze` 업로드 / 순서 변경 / 진행 / 취소 / 오류 안내, `/analyze/[id]` 리포트, 홈 최근 작업 / 예시 리포트
+- 리포트 JSON만 브라우저 저장, 원본 이미지는 메모리 보관(DEC-007)
+
+### 목적
+
+캡처 업로드로 분석을 요청하고 리포트를 보는 화면을 만든다.
+
+### Human Approval 또는 Gate
+
+- 없음 (DEC-008)
+
+### 완료 조건
+
+- `bash scripts/verify.sh` 성공, 390 / 768 / 1280 화면 캡처
+
+### 상세 Task Contract
+
+[`docs/tasks/TASK-006_ANALYSIS_UI.md`](tasks/TASK-006_ANALYSIS_UI.md), [`harness/tasks/TASK-006.json`](../harness/tasks/TASK-006.json) (공통 규칙: [`docs/tasks/COMMON.md`](tasks/COMMON.md))
 
 ---
 

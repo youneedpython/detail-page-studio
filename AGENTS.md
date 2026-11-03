@@ -44,7 +44,7 @@
 Current Task:
 
 ```text
-TASK-005 — 분석 엔진 + /api/analyze
+TASK-006 — 분석 입력 / 리포트 화면
 ```
 
 Status:
