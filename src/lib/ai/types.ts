@@ -18,7 +18,7 @@ export interface AiClient {
   generateStructured<T>(request: StructuredRequest<T>): Promise<StructuredResult<T>>;
 }
 
-export type AiErrorCode = "AI_UNAVAILABLE" | "AI_TIMEOUT" | "AI_REFUSED" | "AI_INVALID_OUTPUT" | "BUDGET_EXCEEDED";
+export type AiErrorCode = "AI_NOT_CONFIGURED" | "AI_UNAVAILABLE" | "AI_TIMEOUT" | "AI_REFUSED" | "AI_INVALID_OUTPUT" | "BUDGET_EXCEEDED";
 export class AiError extends Error {
   constructor(public readonly code: AiErrorCode) {
     super(code);

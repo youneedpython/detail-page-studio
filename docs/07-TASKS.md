@@ -29,7 +29,7 @@ DONE
 
 ## 3. Current Task
 
-TASK-009 — 상세페이지 PNG 내보내기
+TASK-010 — 1단계 MVP 정리
 
 Status:
 
@@ -37,7 +37,7 @@ Status:
 DONE
 ```
 
-TASK-001 ~ TASK-009는 DONE이다. 1단계 흐름(분석 → 초안 생성 → 편집 → PNG 내보내기)이 모두 동작한다. 다음은 TASK-010(1단계 MVP 정리)이다.
+TASK-001 ~ TASK-010은 DONE이다. **1단계 MVP 완료**: 분석 → 초안 생성 → 편집 → PNG 내보내기. 다음은 실제 AI로 품질 확인(Human API Key 필요) 후 2단계(내 스토어 / 커머스 API) 계획이다.
 
 각 Task 절은 "상태 / 목적 / Human Approval 또는 Gate / 완료 조건 / 상세 Task Contract" 형식으로 적는다(형식 규칙: [`docs/tasks/COMMON.md`](tasks/COMMON.md)).
 
@@ -56,6 +56,7 @@ TASK-001 ~ TASK-009는 DONE이다. 1단계 흐름(분석 → 초안 생성 → �
 | TASK-007 | Milestone 5 | 생성 엔진 + /api/generate | DONE | TASK-003, TASK-005 (충족) | DEC-010 (Gate B) |
 | TASK-008 | Milestone 5 | 상품 정보 입력 / 템플릿 / 편집기 | DONE | TASK-006, TASK-007 (충족) | DEC-008 |
 | TASK-009 | Milestone 6 | 상세페이지 PNG 내보내기 | DONE | TASK-008 (충족) | DEC-008 |
+| TASK-010 | Milestone 6 | 1단계 MVP 정리 | DONE | TASK-009 (충족) | DEC-008 |
 
 ---
 
@@ -345,6 +346,37 @@ Executor 구현 완료. Orchestrator 검증 / Review 및 Claude 세션의 실제
 ### 상세 Task Contract
 
 [`docs/tasks/TASK-009_PNG_EXPORT.md`](tasks/TASK-009_PNG_EXPORT.md), [`harness/tasks/TASK-009.json`](../harness/tasks/TASK-009.json) (공통 규칙: [`docs/tasks/COMMON.md`](tasks/COMMON.md))
+
+---
+
+## TASK-010 — 1단계 MVP 정리
+
+### 상태
+
+```text
+DONE
+```
+
+Milestone 6. 선행: TASK-009.
+
+- API Key 미설정 시 503 AI_NOT_CONFIGURED, 체험 모드 배너, 홈 사용 순서 안내, README 전면 갱신
+- Orchestrator Git 단계 rename 처리 버그 수정
+
+### 목적
+
+설정부터 사용까지 막힘없도록 AI 설정 누락 안내, 체험 모드 표시, 사용 흐름 안내, README를 정리한다.
+
+### Human Approval 또는 Gate
+
+- 없음 (DEC-008). 새 오류 코드 AI_NOT_CONFIGURED는 API Spec에 Claude 세션이 반영한다.
+
+### 완료 조건
+
+- `bash scripts/verify.sh` 성공
+
+### 상세 Task Contract
+
+[`docs/tasks/TASK-010_MVP_POLISH.md`](tasks/TASK-010_MVP_POLISH.md), [`harness/tasks/TASK-010.json`](../harness/tasks/TASK-010.json) (공통 규칙: [`docs/tasks/COMMON.md`](tasks/COMMON.md))
 
 ---
 

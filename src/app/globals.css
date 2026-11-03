@@ -92,3 +92,6 @@ select:focus-visible, textarea:focus-visible { outline: 3px solid #b45100; outli
 [data-exporting] [data-export-first] { border-top: 0; }
 dialog { max-width: min(560px, 90vw); border: 1px solid #58708d; border-radius: 12px; padding: 24px; }
 dialog::backdrop { background: #18263899; }
+.workflow { margin: 0 0 40px; }
+.workflow ol { list-style: decimal; padding-left: 24px; color: #45566c; }
+.workflow li { margin: 6px 0; }
