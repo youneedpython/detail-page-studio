@@ -1,6 +1,6 @@
 # 04. Architecture
 
-상태: `Draft (DEC-002 ~ DEC-004 권장안 기준, Human 승인 대기)`
+상태: `Human Approved (2026-11-03)`
 
 ## 1. 구성
 

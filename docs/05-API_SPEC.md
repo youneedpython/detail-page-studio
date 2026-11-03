@@ -1,6 +1,6 @@
 # 05. API Spec
 
-상태: `Draft (TASK-001, Human 승인 대기)`. 변경은 Human Approval 대상이다.
+상태: `Human Approved (2026-11-03)`. 변경은 Human Approval 대상이다.
 
 ## POST `/api/analyze`
 

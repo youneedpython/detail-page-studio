@@ -1,6 +1,6 @@
 # 06. Implementation Plan
 
-상태: `Draft (TASK-001, Human 승인 대기)`
+상태: `Human Approved (2026-11-03)`
 
 ## 1. Milestone / Task
 
@@ -37,7 +37,7 @@
 | 시점 | 승인 대상 |
 |---|---|
 | TASK-001 완료 | DEC-002 ~ 005, 이 Plan |
-| TASK-002 시작 | 패키지 Version 목록 (Gate C) |
+| TASK-002 시작 | 패키지 Version 목록 (Gate C, DEC-008에 따라 Claude 세션이 결정 / 기록) |
 | TASK-003 시작 | Anthropic API 연동, 비용 상한 금액 |
 | TASK-005 / 007 | 분석 점수 기준 / 생성 규칙 (Gate B) |
-| 각 Task 완료 | PR Squash Merge |
+| 각 Task 완료 | PR Squash Merge (DEC-008에 따라 Claude 세션이 수행) |

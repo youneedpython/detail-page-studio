@@ -29,15 +29,15 @@ DONE
 
 ## 3. Current Task
 
-TASK-001 — Requirements / Gate A (제품 명세 · 기술 스택 · 데이터 수집 방식 결정)
+TASK-002 — Project Bootstrap (Next.js / TypeScript / Test / verify 앱 단계)
 
 Status:
 
 ```text
-IN_PROGRESS
+READY
 ```
 
-2026-11-03 Human 지시로 Claude Code 세션이 진행 중이다. DEC-002 ~ DEC-005 권장안과 docs/01 · 03 ~ 06 초안, TASK-002 Contract를 작성했다. Human 승인을 기다린다.
+TASK-001은 DONE이다. DEC-002 ~ DEC-008이 2026-11-03 승인되었다.
 
 각 Task 절은 "상태 / 목적 / Human Approval 또는 Gate / 완료 조건 / 상세 Task Contract" 형식으로 적는다(형식 규칙: [`docs/tasks/COMMON.md`](tasks/COMMON.md)).
 
@@ -47,8 +47,8 @@ IN_PROGRESS
 
 | Task | Milestone | 작업 | 상태 | Dependency | Human Approval |
 |---|---|---|---|---|---|
-| TASK-001 | Milestone 1 | Requirements / Gate A | IN_PROGRESS | DEC-001 | Human 지시 2026-11-03 |
-| TASK-002 | Milestone 2 | Project Bootstrap | BLOCKED | TASK-001, DEC-002, 패키지 Version Gate C | — |
+| TASK-001 | Milestone 1 | Requirements / Gate A | DONE | DEC-001 | Human 승인 2026-11-03 |
+| TASK-002 | Milestone 2 | Project Bootstrap | READY | TASK-001 (충족) | DEC-002 / DEC-008 |
 
 ---
 
@@ -57,7 +57,7 @@ IN_PROGRESS
 ### 상태
 
 ```text
-IN_PROGRESS
+DONE
 ```
 
 Milestone 1. 선행: 없음.
@@ -91,7 +91,7 @@ Milestone 1. 선행: 없음.
 ### 상태
 
 ```text
-BLOCKED
+READY
 ```
 
 Milestone 2. 선행: TASK-001.
@@ -117,5 +117,4 @@ DEC-002 기술 스택으로 빈 앱 골격을 만들고 verify에 앱 검증 단
 
 ## 5. Human Approval 필요 Task
 
-- TASK-001: DEC-002 ~ DEC-005 Human 결정, docs/06-PLAN.md 승인
-- TASK-002: 패키지 Version 목록 승인 (Gate C)
+- 없음 (DEC-008 위임 예외 항목 발생 시 Human 확인)

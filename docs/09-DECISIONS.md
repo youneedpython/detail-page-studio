@@ -1,6 +1,6 @@
 # 09. Decisions
 
-승인된 제품 · 기술 · 아키텍처 결정의 최종 기록이다. 상태는 `Human Approved` / `PENDING` / `Rejected` / `Superseded`를 사용한다. 다음 번호: **DEC-008**
+승인된 제품 · 기술 · 아키텍처 결정의 최종 기록이다. 상태는 `Human Approved` / `PENDING` / `Rejected` / `Superseded`를 사용한다. 다음 번호: **DEC-009**
 
 ---
 
@@ -15,8 +15,8 @@
 
 ## DEC-002 — 기술 스택 (Gate A)
 
-- 상태: `PENDING (권장안 작성 2026-11-03, Human 승인 대기)`
-- 권장안:
+- 상태: `Human Approved (2026-11-03)`
+- 결정:
 
 | 영역 | 권장 | 이유 |
 |---|---|---|
@@ -36,7 +36,7 @@
 
 ## DEC-003 — 상세페이지 데이터 수집 방식
 
-- 상태: `PENDING (권장안 갱신 2026-11-03, Human 승인 대기)`
+- 상태: `Human Approved (2026-11-03)` — 1단계 캡처 업로드, 2단계 커머스 API, 서버 크롤링 제외
 - 제품 순서 (Human 결정 2026-11-03): 남의 스토어 분석을 먼저 하고, 내 스토어 분석은 그다음에 한다.
 - 확인한 사실 (2026-11-03):
   - `smartstore.naver.com/robots.txt`는 `User-agent: *`에 `Disallow: /`이다. Googlebot 등 일부 검색엔진만 허용하고, GPTBot / ClaudeBot 등 AI 크롤러는 명시적으로 차단한다.
@@ -58,8 +58,9 @@
 
 ## DEC-004 — 분석 · 생성 AI 모델과 비용 상한
 
-- 상태: `PENDING (권장안 작성 2026-11-03, Human 승인 대기)`
-- 권장안:
+- 상태: `Human Approved (2026-11-03)`
+- 결정:
+  - 월 비용 상한: Human이 금액을 정하지 않았으므로 기본값 `AI_MONTHLY_BUDGET_USD=30`으로 시작한다. `.env.local`에서 언제든 바꿀 수 있다.
   - 모델: Claude Opus 5.5 (`claude-opus-5-5`). 입력 $4 / 출력 $20 (1M 토큰당, 2026-10 기준). 이미지(Vision)와 한국어 카피 생성을 하나의 모델로 처리한다.
   - 호출 방식: Anthropic TypeScript SDK, Structured Output으로 분석 결과 JSON Schema 고정, 긴 응답은 Streaming.
   - 긴 세로 캡처는 서버에서 세로로 여러 조각으로 나눠 순서대로 전달한다. 조각 크기 / 개수 상한은 TASK에서 실제 이미지 제한을 확인해 정한다.
@@ -73,7 +74,7 @@
 
 ## DEC-005 — GitHub Remote / Branch Ruleset / Git 자동화
 
-- 상태: `PENDING (Remote 생성 완료, Ruleset / 자동화 Human 승인 대기)`
+- 상태: `Human Approved (2026-11-03)` — Ruleset 적용, `git_automation: true`, Repository Public 유지(이미지는 DEC-007로 비공개)
 - 완료: Human이 `youneedpython/detail-page-studio`(Public)를 생성했다. 2026-11-03 첫 Commit을 `main`에 Push했다.
 - 권장안:
   - `main` Ruleset: 삭제 금지 / Force Push 금지 / Linear History / PR 필수(approvals 0) / Required check `verify` / Squash Merge만 허용 / Bypass 없음
@@ -102,3 +103,18 @@
   - 내 사진은 브라우저에 보관하고 서버에는 설명만 보낸다. 섹션에 맞는 사진이 없으면 촬영 가이드를 보여 준다.
   - Test Fixture와 화면 검토 캡처(`docs/images/`)에는 직접 만든 가상 이미지 / 더미 상품만 사용한다.
   - `.gitignore`가 `private/`와 업로드 / 내보내기 산출 폴더를 제외한다. 이미지 파일은 `public/`(앱 아이콘 / UI 에셋), `docs/images/`(가상 데이터 캡처), Fixture 폴더(가상 이미지)에만 Commit할 수 있다.
+
+---
+
+## DEC-008 — Merge 권한 위임
+
+- 상태: `Human Approved (Human 지시 2026-11-03)`
+- 결정: Human이 "push 후 merge까지 진행, 별도 승인 받지 않도록"을 지시했다. Claude Code 세션이 Human을 대신해 다음을 수행한다.
+  - Task Branch Push, PR 생성 / Ready 전환, **Squash Merge**
+  - Gate A / B / C 등 Task 진행에 필요한 결정(패키지 Version, 분석 점수 기준 초안 등)을 권장안대로 확정하고 `docs/09-DECISIONS.md`에 근거와 함께 기록
+- Merge 조건(모두 충족해야 함):
+  - Remote CI `verify` 성공
+  - Orchestrator Task는 Deterministic Verification 성공 + Executor DONE + Claude Reviewer PASS
+  - 문서 Task는 `git diff --check`와 Contract / Schema 검증 성공
+- 유지하는 금지: Force Push / History Rewrite / `main` 직접 Push / Ruleset Bypass / Auto Merge. Codex Executor와 Orchestrator Script는 여전히 Merge하지 않는다.
+- 예외(여전히 Human 확인): 비용이 드는 외부 Resource 생성(배포 등), 유료 API 비용 상한 인상, Repository 공개 범위 변경, Secret 값 입력.

@@ -7,7 +7,7 @@ DEC-002 기술 스택으로 빈 앱 골격을 만들고, `scripts/verify.*`에 �
 ## 선행 조건
 
 - TASK-001 완료, DEC-002 Human Approved
-- 이 Task 실행 전 Human이 패키지 Version 목록을 승인한다(Gate C). Executor는 승인 목록 밖의 패키지를 추가하지 않는다.
+- Claude Code 세션이 승인 패키지를 설치 시점 최신 안정판으로 고정한 `package.json` / `package-lock.json`을 Task Branch에 먼저 Commit한다(DEC-008, Codex Sandbox는 네트워크가 없음). Executor는 Dependency를 추가 / 변경하지 않는다.
 
 ## 범위
 

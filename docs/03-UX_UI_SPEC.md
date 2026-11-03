@@ -1,6 +1,6 @@
 # 03. UX / UI Spec
 
-상태: `Draft (TASK-001, Human 승인 대기)`
+상태: `Human Approved (2026-11-03)`
 
 ## 1. 화면 구성 (1단계)
 
