@@ -34,10 +34,10 @@ TASK-011 — OpenAI AiClient 추가 (GPT-6 Luna)
 Status:
 
 ```text
-IN_PROGRESS
+DONE
 ```
 
-TASK-001 ~ TASK-010은 DONE이다. **1단계 MVP 완료**: 분석 → 초안 생성 → 편집 → PNG 내보내기. 다음은 실제 AI로 품질 확인(Human API Key 필요) 후 2단계(내 스토어 / 커머스 API) 계획이다.
+TASK-001 ~ TASK-011은 DONE이다. **1단계 MVP 완료**: 분석 → 초안 생성 → 편집 → PNG 내보내기. 실제 AI는 OpenAI gpt-6-luna(기본) 또는 Anthropic을 `AI_PROVIDER`로 고른다(DEC-011). 다음은 Human 인증 값으로 실제 품질 확인 후 2단계(내 스토어 / 커머스 API) 계획이다.
 
 각 Task 절은 "상태 / 목적 / Human Approval 또는 Gate / 완료 조건 / 상세 Task Contract" 형식으로 적는다(형식 규칙: [`docs/tasks/COMMON.md`](tasks/COMMON.md)).
 
@@ -57,7 +57,7 @@ TASK-001 ~ TASK-010은 DONE이다. **1단계 MVP 완료**: 분석 → 초안 생
 | TASK-008 | Milestone 5 | 상품 정보 입력 / 템플릿 / 편집기 | DONE | TASK-006, TASK-007 (충족) | DEC-008 |
 | TASK-009 | Milestone 6 | 상세페이지 PNG 내보내기 | DONE | TASK-008 (충족) | DEC-008 |
 | TASK-010 | Milestone 6 | 1단계 MVP 정리 | DONE | TASK-009 (충족) | DEC-008 |
-| TASK-011 | 운영 준비 | OpenAI AiClient 추가 (GPT-6 Luna) | IN_PROGRESS | TASK-010 (충족) | DEC-011 (Human 승인) |
+| TASK-011 | 운영 준비 | OpenAI AiClient 추가 (GPT-6 Luna) | DONE | TASK-010 (충족) | DEC-011 (Human 승인) |
 
 ---
 
@@ -386,12 +386,12 @@ Milestone 6. 선행: TASK-009.
 ### 상태
 
 ```text
-IN_PROGRESS
+DONE
 ```
 
 운영 준비. 선행: TASK-010.
 
-Executor 구현 완료. 자체 정적 검사와 Mock Test는 통과했으며 최종 Orchestrator Verify / Review와 완료 승인을 기다린다. 상태는 IN_PROGRESS를 유지한다.
+Executor 구현 완료. 자체 정적 검사와 Mock Test는 통과했으며 Orchestrator Verify(harness 102 / Vitest 129 / build) 성공, Claude Review 1회차 PASS(Non-blocking Finding 3건), PR #11 Squash Merge로 완료.
 
 ### 목적
 

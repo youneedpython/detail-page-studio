@@ -50,7 +50,7 @@ TASK-011 — OpenAI AiClient 추가 (GPT-6 Luna)
 Status:
 
 ```text
-READY
+DONE
 ```
 
 Task 실행 시에는 다음 규칙을 따른다.
