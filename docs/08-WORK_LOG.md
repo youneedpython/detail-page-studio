@@ -141,3 +141,15 @@
 ![TASK-006 예시 리포트 768](images/task-006/report-768.png)
 ![TASK-006 예시 리포트 1280](images/task-006/report-1280.png)
 ![TASK-006 홈 1280](images/task-006/home-1280.png)
+
+## 2026-11-03 — TASK-007 Executor 구현
+
+- DEC-010에 따라 상품 정보와 사진 설명, 선택 분석 리포트로 초안을 생성하는 Schema / 한국어 Prompt / 엔진 / JSON Handler와 Node.js Route를 구현했다. 분석 리포트의 섹션 Schema를 재사용하며 API의 sourceSlice 형태를 받는다.
+- 공백·문장부호 제거 및 영문 소문자화 후 경쟁 문구 연속 12자 이상 공통 구간을 검사한다. 내 상품 이름·특징에 포함된 구간은 제외하고, 위반 시 한 번 재생성한다. 재생성 후 위반은 섹션·필드·구간별 경고로 남긴다.
+- 모든 호출 사용량과 비용을 합산하고 초안 / 섹션 UUID를 발급한다. 길이 초과와 금지 표현은 원문을 보존하면서 경고한다. 없는 사진 순번은 null로 보정하며 대표 사진을 먼저 배정하고 사진당 최대 두 섹션 사용을 적용한다.
+- 가상 데일리 텀블러 500ml의 여섯 템플릿 샘플과 fake Route 테스트를 추가했다. 분석 / 생성 Handler가 공통 오류 응답을 사용하며 내부 예외 메시지는 응답에서 숨긴다. 실제 API 호출, Dependency, UI 변경은 없다.
+- Executor 최종 참고 검증: 대표 사진 우선 배정 보강 이후 lint / typecheck 통과, 전체 Vitest 10개 파일 76개 Test 통과. 요청 경계, 유사도 / 고유 정보 예외 / 재생성 / 사용량 합산, 사진 배치 / 경고 원문 보존, Handler 오류 매핑 / 내부 메시지 비노출, fake Route를 확인했다.
+- bash scripts/verify.sh는 Harness 101개 Test 통과 후 npm ci 단계에 진입했다. 아직 전체 종료 결과를 얻지 못했으므로 전체 성공으로 처리하지 않는다.
+- 별도 npm run build는 Worktree 내부 next/package.json 설치본을 찾지 못해 실패했다. 개별 검사는 상위 Repository 설치본으로 실행되었다. 최종 검증 기준은 Sandbox 밖 Orchestrator Verify다.
+- Task는 IN_PROGRESS로 유지한다. Executor 구현 완료는 검증 성공이나 Task 완료 승인을 대신하지 않는다. 승인된 역할의 Git / PR / Merge 후속 처리가 남아 있다.
+- git diff --check 통과. 변경 문서와 신규 파일을 직접 읽어 연속 물음표 치환 흔적 및 U+FFFD가 없음을 확인했다.
