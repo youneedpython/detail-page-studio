@@ -44,13 +44,13 @@
 Current Task:
 
 ```text
-TASK-009 — 상세페이지 PNG 내보내기
+TASK-010 — 1단계 MVP 정리
 ```
 
 Status:
 
 ```text
-DONE
+READY
 ```
 
 Task 실행 시에는 다음 규칙을 따른다.
