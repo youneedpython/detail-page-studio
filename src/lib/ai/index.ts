@@ -2,6 +2,7 @@ import { BudgetGuard, JsonUsageStore, MemoryUsageStore } from "../cost";
 import { AnthropicAiClient } from "./anthropic-client";
 import { FakeAiClient, type FakeResponder, type FakeResponse } from "./fake-client";
 import type { AiClient, StructuredRequest, StructuredResult } from "./types";
+import { AiError } from "./types";
 
 export * from "./types";
 export { AnthropicAiClient, FakeAiClient };
@@ -18,6 +19,7 @@ export class GuardedAiClient implements AiClient {
 
 export function createAiClient(responses: FakeResponse[] | FakeResponder = []): GuardedAiClient {
   const fake = process.env.AI_CLIENT === "fake";
+  if (!fake && !process.env.ANTHROPIC_API_KEY?.trim()) throw new AiError("AI_NOT_CONFIGURED");
   return new GuardedAiClient(
     fake ? new FakeAiClient(responses) : new AnthropicAiClient(),
     new BudgetGuard(fake ? new MemoryUsageStore() : new JsonUsageStore()),

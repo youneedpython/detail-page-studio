@@ -34,7 +34,7 @@ TASK-010 — 1단계 MVP 정리
 Status:
 
 ```text
-READY
+IN_PROGRESS
 ```
 
 TASK-001 ~ TASK-009는 DONE이다. 1단계 흐름(분석 → 초안 생성 → 편집 → PNG 내보내기)이 모두 동작한다.
@@ -56,7 +56,7 @@ TASK-001 ~ TASK-009는 DONE이다. 1단계 흐름(분석 → 초안 생성 → �
 | TASK-007 | Milestone 5 | 생성 엔진 + /api/generate | DONE | TASK-003, TASK-005 (충족) | DEC-010 (Gate B) |
 | TASK-008 | Milestone 5 | 상품 정보 입력 / 템플릿 / 편집기 | DONE | TASK-006, TASK-007 (충족) | DEC-008 |
 | TASK-009 | Milestone 6 | 상세페이지 PNG 내보내기 | DONE | TASK-008 (충족) | DEC-008 |
-| TASK-010 | Milestone 6 | 1단계 MVP 정리 | READY | TASK-009 (충족) | DEC-008 |
+| TASK-010 | Milestone 6 | 1단계 MVP 정리 | IN_PROGRESS | TASK-009 (충족) | DEC-008 |
 
 ---
 
@@ -354,7 +354,7 @@ Executor 구현 완료. Orchestrator 검증 / Review 및 Claude 세션의 실제
 ### 상태
 
 ```text
-READY
+IN_PROGRESS
 ```
 
 Milestone 6. 선행: TASK-009.

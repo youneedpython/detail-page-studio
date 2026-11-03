@@ -213,3 +213,15 @@
 ![TASK-009 편집기 768](images/task-009/editor-768.png)
 ![TASK-009 편집기 1280](images/task-009/editor-1280.png)
 ![TASK-009 내보낸 예시(가상 상품)](images/task-009/export-sample.png)
+
+## 2026-11-03 — TASK-010 1단계 MVP 정리 (Executor)
+
+- 공통 AI 팩토리에서 체험 모드가 아니며 인증 설정이 비어 있으면 AI 생성 전에 AI_NOT_CONFIGURED를 발생시킨다. 두 Route는 공통 오류 매핑으로 503과 설정 안내를 반환하며 환경변수 값을 응답이나 로그에 넣지 않는다.
+- 분석 / 상품 입력의 클라이언트 화면을 분리하고 Server Component가 서버 환경에서 체험 여부만 읽어 props로 전달한다. 두 입력 화면 상단에 체험 모드 배너를 표시하고 생성 오류 안내에도 설정 누락을 연결했다.
+- 홈에 3단계 사용 순서를 추가하고 README를 실제 기능, Node 24 실행, 설정 표, 체험, 캡처, 이미지 처리 원칙, 비용 제한, 검증과 Harness 문서 중심으로 갱신했다.
+- TASK-002 F-003: Vitest 설정을 내용 변경 없이 .mts로 옮기고 TypeScript include에 .mts를 추가했다. ESLint 기존 설정으로 검사가 통과하여 별도 변경하지 않았다. 나머지 지정된 과거 Finding은 재작업하지 않았다.
+- 검증: lint / typecheck 통과. 기본 npm test는 상위 node_modules/.vite-temp 쓰기가 Sandbox에서 EPERM으로 차단됐다. 설정을 직접 읽는 npm test -- --configLoader native로 18개 파일 / 105개 테스트 통과. 설정 없음·빈 값·공백의 두 Route 503, fake와 설정 있음의 200, 실제 AI 대신 Fake 사용, 환경값 미노출, 서버 props에 따른 배너 표시 / 미표시, 홈 안내 순서를 검증했다.
+- Build는 worktree 안에 node_modules/next가 없어 Turbopack이 next/package.json을 찾지 못해 중단됐다. 자체 검사 성공은 최종 Orchestrator Verify를 대신하지 않는다.
+- bash scripts/verify.sh 실행에서 Harness 테스트 101개가 통과했다. 이어진 npm ci는 기존 의존성의 peer 경고를 출력하고 설치 단계에서 대기하여 전체 검증 완료를 확인하지 못했다. 기본 테스트의 Sandbox 쓰기 제한과 Build 의존성 경로 문제를 포함해 Sandbox 밖 Orchestrator 결과로 최종 검증해야 한다.
+- 화면 이미지는 TASK-010의 새 이미지 추가 금지 지시에 따라 기존 docs/images 경로만 README에서 연결했다. 신규 캡처나 허용 경로 밖 파일은 추가하지 않았다.
+- 상태: IN_PROGRESS 유지. Executor 구현 완료이며 Task 완료 승인 / Git 작업은 수행하지 않았다.

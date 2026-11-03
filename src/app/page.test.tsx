@@ -14,6 +14,10 @@ test("홈에서 서비스명, 두 작업 진입 경로와 빈 상태를 안내�
   expect(screen.getByRole("link", { name: "내 상세페이지 만들기" })).toHaveAttribute("href", "/create");
   expect(screen.getByText("아직 최근 작업이 없습니다.")).toBeInTheDocument();
   expect(screen.getByRole("link", { name: "예시 리포트 보기" })).toHaveAttribute("href", "/analyze/sample");
+  expect(screen.getByRole("heading", { name: "사용 순서" })).toBeInTheDocument();
+  expect(screen.getAllByRole("listitem").map(item => item.textContent)).toEqual([
+    "경쟁 상세페이지 캡처 업로드", "분석 리포트 확인", "리포트 구조로 내 상세페이지 만들기 / PNG 내보내기",
+  ]);
 });
 test("저장된 최근 리포트와 총점을 보여준다", () => {
   saveReport({ ...sampleReport, id: "recent" }); render(<Home />);

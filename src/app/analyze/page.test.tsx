@@ -1,6 +1,6 @@
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, expect, test, vi } from "vitest";
-import AnalyzePage from "./page";
+import AnalyzePage from "./input-page";
 import { sampleReport } from "../../lib/client/sample-report";
 import { getReport } from "../../lib/client/report-store";
 const { push } = vi.hoisted(() => ({ push: vi.fn() }));

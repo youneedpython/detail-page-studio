@@ -21,6 +21,14 @@ export default function Home() {
         <Link className="action" href="/analyze">경쟁 상세페이지 분석 <span aria-hidden="true">→</span></Link>
         <Link className="action" href="/create">내 상세페이지 만들기 <span aria-hidden="true">→</span></Link>
       </nav>
+      <section aria-labelledby="workflow-heading">
+        <h2 id="workflow-heading">사용 순서</h2>
+        <ol>
+          <li>경쟁 상세페이지 캡처 업로드</li>
+          <li>분석 리포트 확인</li>
+          <li>리포트 구조로 내 상세페이지 만들기 / PNG 내보내기</li>
+        </ol>
+      </section>
       <section className="empty" aria-labelledby="recent-heading">
         <h2 id="recent-heading">최근 작업</h2>
         {!!drafts.length && <ul className="recent-list">{drafts.map(draft => <li key={draft.id}><span className="badge">초안</span> <Link href={`/create/${encodeURIComponent(draft.id)}`}>{draft.productName}</Link><p><time dateTime={draft.updatedAt}>{new Date(draft.updatedAt).toLocaleDateString("ko-KR")}</time></p></li>)}</ul>}

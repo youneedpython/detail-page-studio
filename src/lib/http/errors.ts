@@ -2,6 +2,7 @@ import { AiError } from "../ai/types";
 import { ImageError } from "../image";
 
 const aiFailures = {
+  AI_NOT_CONFIGURED: [503, "AI 연결 설정이 필요합니다. .env.local에 ANTHROPIC_API_KEY를 넣거나 AI_CLIENT=fake로 체험 모드를 사용하세요."],
   BUDGET_EXCEEDED: [429, "이번 달 AI 사용 한도에 도달했습니다."],
   AI_UNAVAILABLE: [502, "AI 서비스에 연결할 수 없습니다. 잠시 후 다시 시도해 주세요."],
   AI_INVALID_OUTPUT: [502, "AI 결과를 읽을 수 없습니다. 다시 시도해 주세요."],
