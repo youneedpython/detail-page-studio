@@ -34,7 +34,7 @@ TASK-003 — AiClient / Fake / Anthropic 구현 / 비용 Guard
 Status:
 
 ```text
-READY
+IN_PROGRESS
 ```
 
 TASK-001, TASK-002는 DONE이다.
@@ -49,7 +49,7 @@ TASK-001, TASK-002는 DONE이다.
 |---|---|---|---|---|---|
 | TASK-001 | Milestone 1 | Requirements / Gate A | DONE | DEC-001 | Human 승인 2026-11-03 |
 | TASK-002 | Milestone 2 | Project Bootstrap | DONE | TASK-001 (충족) | DEC-002 / DEC-008 |
-| TASK-003 | Milestone 3 | AiClient / Fake / Anthropic / 비용 Guard | READY | TASK-002 (충족) | DEC-004 / DEC-008 |
+| TASK-003 | Milestone 3 | AiClient / Fake / Anthropic / 비용 Guard | IN_PROGRESS | TASK-002 (충족) | DEC-004 / DEC-008 |
 
 ---
 
@@ -125,7 +125,7 @@ DEC-002 기술 스택으로 빈 앱 골격을 만들고 verify에 앱 검증 단
 ### 상태
 
 ```text
-READY
+IN_PROGRESS
 ```
 
 Milestone 3. 선행: TASK-002.
