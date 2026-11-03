@@ -15,5 +15,7 @@ test("safe single, split and section names", () => {
 });
 test("counts repeated markers across fields and empty photo slots", () => {
   expect(countPlaceholders([{ id: "a", role: "hook", template: "hero", headline: "[확인 필요: 제목]", body: "[확인 필요: 하나] [확인 필요: 둘]", bullets: ["[확인 필요: 항목]"], imageGuide: "가이드", imageSlot: null }])).toEqual({ text: 4, images: 1 });
+  // imageGuide is hidden in exported images, so its markers are not counted.
+  expect(countPlaceholders([{ id: "b", role: "spec", template: "spec-table", headline: "제목", body: "", bullets: [], imageGuide: "[확인 필요: 사진]", imageSlot: 0 }])).toEqual({ text: 0, images: 0 });
   expect(countPlaceholders([])).toEqual({ text: 0, images: 0 });
 });

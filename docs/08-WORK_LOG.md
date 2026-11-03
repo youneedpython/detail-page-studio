@@ -198,3 +198,18 @@
 - Verification: 관련 3개 Test 파일 10개 및 앱 전체 16개 파일 96개 Test 통과. typecheck / lint 통과. 초기 편집기 테스트에서 UI 연결 누락과 jsdom dialog mock 누락을 발견하여 수정했다. bash scripts/verify.sh는 Harness Test 101개 통과 후 npm ci의 registry 접근 EACCES로 중단됐다. 별도 build는 worktree 내부 node_modules/next가 없어 Turbopack 경로 해석 오류로 중단됐다(상위 Repository 의존성으로 Test는 실행 가능). git diff --check와 변경 문서의 연속 물음표 / U+FFFD 검사를 통과했다. Sandbox 밖 최종 Orchestrator 결과가 검증 기준이다.
 - 후속: Claude 세션이 실제 브라우저 저장 결과와 Mobile 390px / Tablet 768px / Desktop 1280px 편집기 캡처를 확인하고 기록한다. Executor 허용 경로에 docs/images가 없어 캡처를 추가하지 않았다.
 - 상태: IN_PROGRESS 유지. Git 작업과 Task 완료 승인은 수행하지 않았다.
+
+## 2026-11-03 — TASK-009 완료 (Orchestrator + Claude 세션)
+
+- Run `2026-11-03T06-43-05-695Z-a68c51b1`: Review 1회차 PASS, Orchestrator Verify 성공(Vitest 96), Draft PR #9 자동 생성.
+- Claude 세션 후속 처리:
+  - F1: 분할 / 섹션별 내보내기에서 숨긴 형제 섹션 때문에 각 이미지 첫 섹션 위에 구분선이 남던 문제 — 이미지마다 첫 섹션에 `data-export-first`를 붙이고 구분선을 없앴다.
+  - F2: 불러오지 못한 사진 하나 때문에 내보내기 전체가 실패하지 않도록 이미지 decode 실패를 무시한다.
+  - F3: 확인 대화상자의 확인 필요 개수에서 내보낸 이미지에 보이지 않는 사진 가이드 문구를 뺐다.
+  - Vitest 97 통과.
+- 실제 브라우저 확인(headless Chrome, `AI_CLIENT=fake`, 가상 상품 초안, 결과는 Git 비추적 `private/`): 전체 내보내기 → 860×2340 PNG 1장, 섹션별 → 860px PNG 6장. 사진 자리 표시는 빠지고 확인 필요 강조는 남았다. 섹션별 2 · 3번째 이미지 맨 위 픽셀이 흰색(구분선 없음)임을 확인했다.
+
+![TASK-009 편집기 390](images/task-009/editor-390.png)
+![TASK-009 편집기 768](images/task-009/editor-768.png)
+![TASK-009 편집기 1280](images/task-009/editor-1280.png)
+![TASK-009 내보낸 예시(가상 상품)](images/task-009/export-sample.png)

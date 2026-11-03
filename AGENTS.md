@@ -50,7 +50,7 @@ TASK-009 — 상세페이지 PNG 내보내기
 Status:
 
 ```text
-READY
+DONE
 ```
 
 Task 실행 시에는 다음 규칙을 따른다.

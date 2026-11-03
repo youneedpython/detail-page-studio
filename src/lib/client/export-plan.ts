@@ -20,7 +20,7 @@ export function exportFileName(productName: string, part = 1, total: number | "s
 
 export function countPlaceholders(sections: DetailDraft["sections"]) {
   return {
-    text: sections.reduce((sum, section) => sum + [section.headline, section.body, ...section.bullets, section.imageGuide].reduce((n, text) => n + (text.match(/\[확인 필요:[^\]]*\]/g)?.length ?? 0), 0), 0),
+    text: sections.reduce((sum, section) => sum + [section.headline, section.body, ...section.bullets].reduce((n, text) => n + (text.match(/\[확인 필요:[^\]]*\]/g)?.length ?? 0), 0), 0),
     images: sections.filter(section => section.imageSlot === null).length,
   };
 }
