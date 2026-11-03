@@ -34,10 +34,10 @@ TASK-007 — 생성 엔진 + /api/generate
 Status:
 
 ```text
-IN_PROGRESS
+DONE
 ```
 
-TASK-001 ~ TASK-006은 DONE이다. 분석 기능(1단계 전반부)이 동작한다.
+TASK-001 ~ TASK-007은 DONE이다. 다음은 TASK-008(템플릿 + 편집기)이다.
 
 각 Task 절은 "상태 / 목적 / Human Approval 또는 Gate / 완료 조건 / 상세 Task Contract" 형식으로 적는다(형식 규칙: [`docs/tasks/COMMON.md`](tasks/COMMON.md)).
 
@@ -53,7 +53,7 @@ TASK-001 ~ TASK-006은 DONE이다. 분석 기능(1단계 전반부)이 동작한
 | TASK-004 | Milestone 3 | 이미지 업로드 검증 / 세로 분할 | DONE | TASK-003 (충족) | DEC-008 |
 | TASK-005 | Milestone 4 | 분석 엔진 + /api/analyze | DONE | TASK-003, TASK-004 (충족) | DEC-009 (Gate B) |
 | TASK-006 | Milestone 4 | 분석 입력 / 리포트 화면 | DONE | TASK-005 (충족) | DEC-008 |
-| TASK-007 | Milestone 5 | 생성 엔진 + /api/generate | IN_PROGRESS | TASK-003, TASK-005 (충족) | DEC-010 (Gate B) |
+| TASK-007 | Milestone 5 | 생성 엔진 + /api/generate | DONE | TASK-003, TASK-005 (충족) | DEC-010 (Gate B) |
 
 ---
 
@@ -255,10 +255,13 @@ Milestone 4. 선행: TASK-005.
 ### 상태
 
 ```text
-IN_PROGRESS
+DONE
 ```
 
 Milestone 5. 선행: TASK-003, TASK-005.
+
+- 생성 Schema / Prompt(DEC-010) / 유사도 검사 / 엔진 / `/api/generate`
+- 공통 HTTP 오류 응답(`src/lib/http/errors.ts`)
 
 ### 목적
 

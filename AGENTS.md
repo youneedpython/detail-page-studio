@@ -50,7 +50,7 @@ TASK-007 — 생성 엔진 + /api/generate
 Status:
 
 ```text
-READY
+DONE
 ```
 
 Task 실행 시에는 다음 규칙을 따른다.

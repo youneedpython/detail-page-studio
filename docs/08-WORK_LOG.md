@@ -153,3 +153,9 @@
 - 별도 npm run build는 Worktree 내부 next/package.json 설치본을 찾지 못해 실패했다. 개별 검사는 상위 Repository 설치본으로 실행되었다. 최종 검증 기준은 Sandbox 밖 Orchestrator Verify다.
 - Task는 IN_PROGRESS로 유지한다. Executor 구현 완료는 검증 성공이나 Task 완료 승인을 대신하지 않는다. 승인된 역할의 Git / PR / Merge 후속 처리가 남아 있다.
 - git diff --check 통과. 변경 문서와 신규 파일을 직접 읽어 연속 물음표 치환 흔적 및 U+FFFD가 없음을 확인했다.
+
+## 2026-11-03 — TASK-007 완료 (Orchestrator + Claude 세션)
+
+- Run `2026-11-03T06-09-12-653Z-20ea9883`: Review 1회차 PASS, Orchestrator Verify 성공(Harness 101, lint, typecheck, Vitest 76, build). 위 Executor 기록의 npm ci 대기 / build 실패는 Sandbox 중간 기록이며 최종 결과는 이 Verify다(F-001).
+- Claude 세션 Smoke(`AI_CLIENT=fake`, `next start`): 정상 요청 → 200 초안(템플릿 6종, hero에 내 사진 0번 배치, warnings 없음), 빈 상품명 → 400 INVALID_REQUEST.
+- F-002: 공통 오류 함수로 옮기면서 analyze 오류 문구가 일반화되었다(코드 / 상태는 동일). 화면 문구는 TASK-006 labels의 코드별 안내를 쓰므로 영향이 없다.
