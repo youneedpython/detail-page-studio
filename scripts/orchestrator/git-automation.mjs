@@ -68,7 +68,8 @@ export async function automateGit({ sourceRoot, workspace, revision, branch, con
   // Literal pathspecs prevent filenames from being interpreted as globs or magic.
   for (const file of files) await command(['git', '--literal-pathspecs', 'add', '--', file]);
   const checkStaged = async () => {
-    const staged = (await git(sourceRoot, ['diff', '--cached', '--name-only', '-z'])).split('\0').filter(Boolean).sort();
+    // Rename detection would collapse a rename to its new path only; compare every touched path.
+    const staged = (await git(sourceRoot, ['diff', '--cached', '--no-renames', '--name-only', '-z'])).split('\0').filter(Boolean).sort();
     if (staged.some(secretFile)) blocked('Secret file detected in staged paths');
     if (JSON.stringify(staged) !== JSON.stringify([...files].sort())) blocked('Staged allowlist mismatch');
   };

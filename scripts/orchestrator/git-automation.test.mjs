@@ -227,3 +227,15 @@ test('failed Verify / non-PASS stop before any Git or gh invocation', async t =>
   assert.equal(options.calls.length, 0);
   assert.equal((await git(options.sourceRoot, ['rev-parse', 'HEAD'])).trim(), options.revision);
 });
+
+test('renamed files stage both old and new paths without an allowlist mismatch', async t => {
+  const options = await fixture(t);
+  // Same content as the deleted file, so Git rename detection pairs them.
+  await writeFile(path.join(options.workspace, 'src/renamed.txt'), 'delete\n');
+  const reviewed = await snapshot(options.workspace);
+  const executor = { ...evidence.executor, changed_files: [...evidence.executor.changed_files, 'src/renamed.txt'] };
+  const result = await automateGit({ ...options, reviewed, executor });
+  assert.match(result.commit_sha, /^[a-f0-9]{40}$/);
+  const committed = (await git(options.sourceRoot, ['show', '--no-renames', '--name-status', '--format=', 'HEAD'])).trim().split('\n');
+  assert.ok(committed.includes('D\tsrc/delete.txt') && committed.includes('A\tsrc/renamed.txt'));
+});
