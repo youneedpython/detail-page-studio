@@ -23,7 +23,9 @@ export async function validateUploads(images: UploadedImage[]): Promise<void> {
       if (metadata.format !== formats.get(image.mimeType) || !metadata.width || !metadata.height) {
         throw new Error("Invalid format");
       }
-      if (metadata.width < 300) {
+      // EXIF orientation 5-8 swaps axes; check the width slicing will actually see.
+      const orientedWidth = (metadata.orientation ?? 1) >= 5 ? metadata.height : metadata.width;
+      if (orientedWidth < 300) {
         throw new ImageError("INVALID_IMAGE", "이미지 너비가 300px 미만입니다. 상세페이지 전체 캡처인지 확인해 주세요.");
       }
       // metadata alone can accept a header with corrupt or missing pixel data.

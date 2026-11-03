@@ -50,7 +50,7 @@ TASK-004 — 이미지 업로드 검증 / 분석용 세로 분할
 Status:
 
 ```text
-READY
+DONE
 ```
 
 Task 실행 시에는 다음 규칙을 따른다.

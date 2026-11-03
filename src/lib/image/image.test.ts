@@ -35,6 +35,11 @@ describe("validateUploads", () => {
     await expect(validateUploads([{ ...image, size: 20 * 1024 * 1024 + 1 }])).rejects.toMatchObject({ code: "TOO_LARGE" });
     await expect(validateUploads([{ ...image, size: 1, data: Buffer.alloc(20 * 1024 * 1024 + 1) }])).rejects.toMatchObject({ code: "TOO_LARGE" });
     await expect(validateUploads([await upload(299)])).rejects.toBeInstanceOf(ImageError);
+    // 1000x200 stored with EXIF orientation 6 displays as 200px wide.
+    const rotated = await sharp({ create: { width: 1000, height: 200, channels: 3, background: "red" } })
+      .jpeg().withMetadata({ orientation: 6 }).toBuffer();
+    await expect(validateUploads([{ name: "rotated.jpeg", mimeType: "image/jpeg", size: rotated.length, data: rotated }]))
+      .rejects.toMatchObject({ code: "INVALID_IMAGE" });
   });
 });
 
