@@ -1,7 +1,8 @@
 // Usage: node scripts/capture-screens.mjs <url> <outDir> <prefix> <width...>  (예: http://localhost:3000/ docs/images/task-0NN home 390 768 1280)
 // Captures full-page PNGs at exact viewport widths through the Chrome DevTools Protocol.
+// Optional CAPTURE_STORAGE=<json file> seeds localStorage ({ "name": value }) on the page origin first.
 import { spawn } from 'node:child_process';
-import { writeFileSync, mkdtempSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdtempSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 
@@ -24,6 +25,13 @@ ws.addEventListener('message', e => { const m = JSON.parse(e.data); if (pending.
 const send = (method, params = {}) => new Promise(r => { pending.set(++id, r); ws.send(JSON.stringify({ id, method, params })); });
 
 await send('Page.enable');
+if (process.env.CAPTURE_STORAGE) {
+  const entries = JSON.parse(readFileSync(process.env.CAPTURE_STORAGE, 'utf8'));
+  await send('Page.navigate', { url: new URL(url).origin });
+  await sleep(1500);
+  const script = Object.entries(entries).map(([name, value]) => `localStorage.setItem(${JSON.stringify(name)}, ${JSON.stringify(typeof value === 'string' ? value : JSON.stringify(value))});`).join('');
+  await send('Runtime.evaluate', { expression: script });
+}
 for (const w of widths.map(Number)) {
   await send('Emulation.setDeviceMetricsOverride', { width: w, height: 900, deviceScaleFactor: 1, mobile: w < 600 });
   await send('Page.navigate', { url });

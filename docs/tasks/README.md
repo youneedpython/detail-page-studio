@@ -20,7 +20,7 @@ Task 하나는 두 파일로 정의한다.
 | [TASK-005](TASK-005_ANALYSIS_ENGINE.md) | 분석 엔진 + /api/analyze | DONE | Orchestrator | DEC-009 |
 | [TASK-006](TASK-006_ANALYSIS_UI.md) | 분석 입력 / 리포트 화면 | DONE | Orchestrator | — |
 | [TASK-007](TASK-007_GENERATION_ENGINE.md) | 생성 엔진 + /api/generate | DONE | Orchestrator | DEC-010 |
-| [TASK-008](TASK-008_EDITOR.md) | 상품 정보 입력 / 템플릿 / 편집기 | READY | Orchestrator | — |
+| [TASK-008](TASK-008_EDITOR.md) | 상품 정보 입력 / 템플릿 / 편집기 | DONE | Orchestrator | — |
 
 TASK-002 이후는 TASK-001에서 승인된 `docs/06-PLAN.md`를 기준으로 등록한다.
 

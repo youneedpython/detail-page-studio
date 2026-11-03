@@ -1,7 +1,7 @@
 import { beforeEach, expect, test, vi } from "vitest";
 import { getDraft, listDrafts, removeDraft, saveDraft, type SavedDraft } from "./draft-store";
 import { MemoryPhotoStore } from "./photo-store";
-export const draftFixture: SavedDraft = {
+const draftFixture: SavedDraft = {
   id: "draft", productName: "가상 텀블러", createdAt: "2026-11-03T00:00:00.000Z", updatedAt: "2026-11-03T00:00:00.000Z",
   sections: [{ id: "s1", role: "hook", template: "hero", headline: "가상 상품 제목", body: "본문", bullets: ["용량: 500ml", "확인 안내"], imageSlot: null, imageGuide: "정면 사진" }, { id: "s2", role: "spec", template: "spec-table", headline: "스펙", body: "구성", bullets: ["용량: 500ml"], imageSlot: null, imageGuide: "구성 사진" }],
   warnings: ["게시 전 사실을 확인해 주세요"], usage: { input: 0, output: 0, estimatedCostUsd: 0 },

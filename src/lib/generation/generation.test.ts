@@ -122,7 +122,8 @@ describe("생성 Handler / Route", () => {
     expect(result.status).toBe(200);
     const draft = await result.json();
     expect(draft.sections).toHaveLength(6);
-    expect(draft.sections[0].headline).toContain("데일리 텀블러 500ml");
+    // The fake draft echoes the requested product name so local screens reflect user input.
+    expect(draft.sections[0].headline).toBe("내 상품");
   });
   it("잘못된 JSON과 요청 Schema는 한국어 INVALID_REQUEST이다", async () => {
     const fake = new FakeAiClient(); const handler = createGenerateHandler({ ai: fake });

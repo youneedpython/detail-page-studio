@@ -170,3 +170,21 @@
 - bash scripts/verify.sh는 Harness 101개 Test 통과 후 npm ci에서 npm 레지스트리 접근 EACCES로 중단됐다. 별도 build는 worktree 내부 next/package.json 설치본을 찾지 못해 실패했다. 개별 앱 검사는 상위 Repository 설치본으로 실행되었다. 전체 성공으로 처리하지 않으며, 최종 검증 기준은 Sandbox 밖 Orchestrator Verify다. 재설치나 권한 우회는 하지 않았다.
 - 변경 문서와 신규 파일의 UTF-8을 직접 읽어 연속 물음표 치환 흔적과 U+FFFD가 없음을 확인했다.
 - Task는 IN_PROGRESS로 유지한다. Executor DONE은 Task 완료 승인 / Merge를 대신하지 않는다. 허용 경로 밖의 화면 캡처는 Contract에 따라 Claude 세션이 입력 / 편집기 각 390 / 768 / 1280 폭에서 수행하고 docs/images/task-008/에 추가한 뒤 이 기록에 연결해야 한다.
+
+## 2026-11-03 — TASK-008 완료 (Orchestrator + Claude 세션)
+
+- Run `2026-11-03T06-23-06-189Z-0b6c5b2c`: Review 1회차 PASS, Orchestrator Verify 성공(Vitest 88), Draft PR #8 자동 생성.
+- Claude 세션 후속 처리:
+  - N-002: 편집 중 생긴 빈 줄이 빈 항목 / 표 행으로 보이지 않도록 템플릿 렌더링에서 제외하고 Test를 추가했다(편집 textarea는 그대로 둠).
+  - N-003: Test 파일의 불필요한 export 제거.
+  - fake 모드 샘플 초안이 모든 섹션에 같은 제목 / 자리 표시만 반복해 화면 확인이 어려웠다. 사용자가 입력한 상품명 / 특징 / 사진 수를 반영해 6개 섹션을 서로 다르게 채우도록 바꿨다.
+  - `scripts/capture-screens.mjs`에 `CAPTURE_STORAGE`(localStorage 미리 채우기) 옵션을 추가해 편집기 화면을 캡처했다. Windows Shell에서 curl `-d`로 한글 본문을 보내면 인코딩이 깨지므로 UTF-8 파일(`--data-binary @file`)로 보낸다.
+- Vitest 89 통과.
+
+![TASK-008 입력 390](images/task-008/create-390.png)
+![TASK-008 입력 768](images/task-008/create-768.png)
+![TASK-008 입력 1280](images/task-008/create-1280.png)
+![TASK-008 편집기 390](images/task-008/editor-390.png)
+![TASK-008 편집기 768](images/task-008/editor-768.png)
+![TASK-008 편집기 1280](images/task-008/editor-1280.png)
+![TASK-008 홈 1280](images/task-008/home-1280.png)

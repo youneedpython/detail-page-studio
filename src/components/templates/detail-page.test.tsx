@@ -15,3 +15,12 @@ test("내 사진 URL이 있으면 가이드 상자를 사진으로 바꾼다", (
   render(<DetailPage sections={[{ id: "a", role: "hook", template: "hero", headline: "상품", body: "", bullets: [], imageSlot: 0, imageGuide: "정면" }]} photoUrls={{ 0: "blob:local" }} />);
   expect(screen.getByRole("img", { name: "정면" })).toHaveAttribute("src", "blob:local");
 });
+test("편집 중 생긴 빈 줄은 빈 항목으로 렌더링하지 않는다", () => {
+  const base = { role: "other", headline: "제목", body: "", imageSlot: null, imageGuide: "" } as const;
+  const { container } = render(<DetailPage sections={[
+    { ...base, id: "list", template: "feature-list", bullets: ["첫째", "", "  ", "둘째"] },
+    { ...base, id: "table", template: "spec-table", bullets: ["용량: 500ml", ""] },
+  ]} />);
+  expect(container.querySelectorAll("li")).toHaveLength(2);
+  expect(container.querySelectorAll("tr")).toHaveLength(1);
+});
