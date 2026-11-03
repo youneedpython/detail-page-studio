@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  # Job 이름 `verify`는 scripts/orchestrator/pr-gate.mjs REQUIRED_CHECKS 및 Branch Ruleset Required Check와 일치해야 한다.
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+      - name: Configure Git identity for test fixtures
+        run: |
+          git config --global user.name "CI"
+          git config --global user.email "ci@example.invalid"
+          git config --global init.defaultBranch main
+      - name: Verify
+        run: sh scripts/verify.sh

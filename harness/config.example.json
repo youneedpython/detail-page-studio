@@ -1,0 +1,7 @@
+{
+  "codex": {"command": ["node", "<absolute path to @openai/codex/bin/codex.js>"]},
+  "claude": {"command": ["<absolute path to VS Code extension claude.exe>"]},
+  "sandbox": "elevated",
+  "git_automation": false,
+  "timeouts": {"preflight_ms": 30000, "executor_ms": 900000, "reviewer_ms": 300000, "verify_ms": 900000}
+}

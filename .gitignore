@@ -1,0 +1,32 @@
+# Node
+node_modules/
+dist/
+*.tsbuildinfo
+
+# IDE / Editor
+.vscode/
+.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment / Secrets
+.env
+.env.*
+!.env.example
+
+# Misc
+coverage/
+
+# Archive
+*.zip
+
+# Local Orchestrator
+.harness/runs/
+.harness/workspaces/
+harness/config.local.json

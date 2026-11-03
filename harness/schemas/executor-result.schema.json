@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "status",
+    "changed_files",
+    "summary",
+    "verification",
+    "human_decisions_needed",
+    "handoff_actions",
+    "pr_overview",
+    "pr_changes",
+    "pr_follow_up"
+  ],
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": [
+        "DONE",
+        "FAILED",
+        "HUMAN_REQUIRED"
+      ]
+    },
+    "changed_files": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "summary": {
+      "type": "string"
+    },
+    "verification": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "human_decisions_needed": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "handoff_actions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "pr_overview": {
+      "type": "string"
+    },
+    "pr_changes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "pr_follow_up": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
