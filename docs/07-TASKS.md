@@ -29,7 +29,7 @@ DONE
 
 ## 3. Current Task
 
-TASK-008 — 상품 정보 입력 / 상세페이지 템플릿 / 편집기
+TASK-009 — 상세페이지 PNG 내보내기
 
 Status:
 
@@ -37,7 +37,7 @@ Status:
 DONE
 ```
 
-TASK-001 ~ TASK-008은 DONE이다. 분석 → 초안 생성 → 편집까지 동작한다. 다음은 TASK-009(PNG 내보내기)다.
+TASK-001 ~ TASK-009는 DONE이다. 1단계 흐름(분석 → 초안 생성 → 편집 → PNG 내보내기)이 모두 동작한다. 다음은 TASK-010(1단계 MVP 정리)이다.
 
 각 Task 절은 "상태 / 목적 / Human Approval 또는 Gate / 완료 조건 / 상세 Task Contract" 형식으로 적는다(형식 규칙: [`docs/tasks/COMMON.md`](tasks/COMMON.md)).
 
@@ -55,6 +55,7 @@ TASK-001 ~ TASK-008은 DONE이다. 분석 → 초안 생성 → 편집까지 동
 | TASK-006 | Milestone 4 | 분석 입력 / 리포트 화면 | DONE | TASK-005 (충족) | DEC-008 |
 | TASK-007 | Milestone 5 | 생성 엔진 + /api/generate | DONE | TASK-003, TASK-005 (충족) | DEC-010 (Gate B) |
 | TASK-008 | Milestone 5 | 상품 정보 입력 / 템플릿 / 편집기 | DONE | TASK-006, TASK-007 (충족) | DEC-008 |
+| TASK-009 | Milestone 6 | 상세페이지 PNG 내보내기 | DONE | TASK-008 (충족) | DEC-008 |
 
 ---
 
@@ -311,6 +312,39 @@ Milestone 5. 선행: TASK-006, TASK-007.
 ### 상세 Task Contract
 
 [`docs/tasks/TASK-008_EDITOR.md`](tasks/TASK-008_EDITOR.md), [`harness/tasks/TASK-008.json`](../harness/tasks/TASK-008.json) (공통 규칙: [`docs/tasks/COMMON.md`](tasks/COMMON.md))
+
+---
+
+## TASK-009 — 상세페이지 PNG 내보내기
+
+### 상태
+
+```text
+DONE
+```
+
+Milestone 6. 선행: TASK-008.
+
+- 전체 이미지(16000px 초과 시 섹션 경계 분할) / 섹션별 PNG 내보내기, 860px
+- 내보내기 전 확인 필요 / 사진 없음 확인 대화상자
+
+Executor 구현 완료. Orchestrator 검증 / Review 및 Claude 세션의 실제 브라우저 내보내기 / 화면 캡처를 기다린다. Task 완료 승인은 아직 이루어지지 않았다.
+
+### 목적
+
+편집한 상세페이지를 860px 폭 PNG로 내보낸다(전체 / 자동 분할 / 섹션별).
+
+### Human Approval 또는 Gate
+
+- html-to-image 1.11.13 추가: DEC-008에 따라 Claude 세션 결정 (DEC-002 부속)
+
+### 완료 조건
+
+- `bash scripts/verify.sh` 성공, 실제 브라우저 내보내기 확인
+
+### 상세 Task Contract
+
+[`docs/tasks/TASK-009_PNG_EXPORT.md`](tasks/TASK-009_PNG_EXPORT.md), [`harness/tasks/TASK-009.json`](../harness/tasks/TASK-009.json) (공통 규칙: [`docs/tasks/COMMON.md`](tasks/COMMON.md))
 
 ---
 

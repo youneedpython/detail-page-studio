@@ -85,3 +85,10 @@ select:focus-visible, textarea:focus-visible { outline: 3px solid #b45100; outli
   .actions { grid-template-columns: 1fr; gap: 16px; }
   .action, .empty { padding: 24px; }
 }
+
+.export-root { position: fixed; left: -10000px; top: 0; width: 860px; pointer-events: none; }
+[data-exporting] .detail-placeholder { display: none; }
+[data-exporting] [hidden] { display: none !important; }
+[data-exporting] [data-export-first] { border-top: 0; }
+dialog { max-width: min(560px, 90vw); border: 1px solid #58708d; border-radius: 12px; padding: 24px; }
+dialog::backdrop { background: #18263899; }

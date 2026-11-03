@@ -44,7 +44,7 @@
 Current Task:
 
 ```text
-TASK-008 — 상품 정보 입력 / 상세페이지 템플릿 / 편집기
+TASK-009 — 상세페이지 PNG 내보내기
 ```
 
 Status:
