@@ -50,7 +50,7 @@ TASK-005 — 분석 엔진 + /api/analyze
 Status:
 
 ```text
-READY
+DONE
 ```
 
 Task 실행 시에는 다음 규칙을 따른다.

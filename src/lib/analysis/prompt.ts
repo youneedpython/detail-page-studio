@@ -17,7 +17,7 @@ export const analysisSystemPrompt = `당신은 스마트스토어 상세페이�
 export function buildAnalysisContent(slices: AnalysisSlice[], context: ProductContext = {}): AiContent[] {
   const content: AiContent[] = [{ type: "text", text: `선택 상품 정보\n상품명: ${context.productName ?? "미입력"}\n가격: ${context.price ?? "미입력"}\n카테고리: ${context.category ?? "미입력"}` }];
   for (const slice of slices) {
-    content.push({ type: "text", text: `[조각 ${slice.index + 1} / 전체 ${slices.length}, 이미지 ${slice.sourceImage + 1}]` });
+    content.push({ type: "text", text: `[sliceIndex=${slice.index} (조각 ${slice.index + 1} / 전체 ${slices.length}), 이미지 ${slice.sourceImage + 1}]` });
     content.push({ type: "image", mediaType: slice.mediaType, base64: slice.base64 });
   }
   return content;

@@ -32,9 +32,9 @@ describe("분석 Prompt와 Schema", () => {
     const content = buildAnalysisContent(slices, { productName: "가상 상품", price: "100원", category: "생활" });
     expect(content[0]).toEqual({ type: "text", text: "선택 상품 정보\n상품명: 가상 상품\n가격: 100원\n카테고리: 생활" });
     expect(content.filter(block => block.type === "text").slice(1)).toEqual([
-      { type: "text", text: "[조각 1 / 전체 3, 이미지 1]" },
-      { type: "text", text: "[조각 2 / 전체 3, 이미지 1]" },
-      { type: "text", text: "[조각 3 / 전체 3, 이미지 2]" },
+      { type: "text", text: "[sliceIndex=0 (조각 1 / 전체 3), 이미지 1]" },
+      { type: "text", text: "[sliceIndex=1 (조각 2 / 전체 3), 이미지 1]" },
+      { type: "text", text: "[sliceIndex=2 (조각 3 / 전체 3), 이미지 2]" },
     ]);
     slices.forEach((slice, index) => expect(content[index * 2 + 2]).toEqual({ type: "image", mediaType: slice.mediaType, base64: slice.base64 }));
     for (const item of [...checklistItems, ...scoreCriteria]) expect(analysisSystemPrompt).toContain(item);
@@ -100,7 +100,7 @@ describe("분석 Handler / Route", () => {
     expect(response.status).toBe(200);
     const first = fake.calls[0].content[0];
     expect(first.type === "text" && first.text).toBe(`선택 상품 정보\n상품명: ${"가".repeat(100)}\n가격: ${"나".repeat(100)}\n카테고리: ${"다".repeat(100)}`);
-    expect(fake.calls[0].content[5]).toEqual({ type: "text", text: "[조각 3 / 전체 3, 이미지 2]" });
+    expect(fake.calls[0].content[5]).toEqual({ type: "text", text: "[sliceIndex=2 (조각 3 / 전체 3), 이미지 2]" });
   });
 
   it.each<[AiErrorCode, number]>([["BUDGET_EXCEEDED", 429], ["AI_UNAVAILABLE", 502], ["AI_INVALID_OUTPUT", 502], ["AI_TIMEOUT", 504], ["AI_REFUSED", 422]])("%s를 %i로 매핑한다", async (code, status) => {
