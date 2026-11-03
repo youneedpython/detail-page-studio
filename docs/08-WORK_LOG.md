@@ -240,3 +240,15 @@
 ![TASK-010 홈 1280](images/task-010/home-1280.png)
 ![TASK-010 체험 모드 390](images/task-010/analyze-demo-390.png)
 ![TASK-010 체험 모드 1280](images/task-010/analyze-demo-1280.png)
+
+## 2026-11-03 — TASK-011 OpenAI AiClient 추가 (Executor)
+
+- DEC-011과 승인 Contract에 따라 gpt-6-luna Responses parse 클라이언트를 추가했다. 텍스트 / 이미지 data URL, 구조화 출력, effort / 출력 상한, refusal / 불완전 출력 / refine 재검증과 SDK 오류 매핑을 구현했다. SDK 7.39.0의 LengthFinishReasonError / ContentFilterFinishReasonError는 정적 OpenAI 멤버가 아니므로 공개 openai/core/error 경로에서 가져온다.
+- AI_PROVIDER를 정규화하고 기본 openai / 선택 anthropic으로 분기한다. 선택한 제공자의 인증 설정만 검사하며 값은 응답 / 로그에 넣지 않는다. Fake 팩토리는 기존처럼 인증 확인 없이 구성한다.
+- 비용 계산에 제공자별 승인 단가를 반영했다. 월 상한과 사용량 파일 형식, 분석 / 생성 엔진과 프롬프트 / Schema는 유지했다. README와 공통 설정 오류 안내를 갱신했다.
+- 참고 검증: typecheck / lint 통과, native config loader의 Vitest 20개 파일 / 129개 Test 통과. 실제 네트워크 없이 Transport Mock으로 요청 / 출력 / 오류 / 기존 Schema 변환을 확인하고 두 Route의 제공자별 설정 누락 / 정상 분기 / 잘못된 제공자 / 환경값 미노출을 검증했다. 마지막 Test 정리 후 관련 2개 파일 / 28개 Test도 통과했다.
+- 초기 Test에서 Fake와 잘못된 제공자를 함께 사용하면 엔진 비용 계산이 설정 오류를 반환함을 확인했다. 정상 Fake Route 검증은 기본 제공자로 수행하고 잘못된 제공자의 Fake 팩토리 우회는 별도 단위 Test로 검증했다.
+- 자체 Build는 worktree 내부 node_modules/next가 없어 Turbopack이 next/package.json을 찾지 못해 중단됐다. 상위 Repository 의존성으로 정적 검사 / Test는 실행됐으며 Build는 최종 Orchestrator Verify 기준으로 확인해야 한다.
+- bash scripts/verify.sh의 Harness Test 102개는 통과했다. 이어진 npm ci는 기존 ESLint peer 경고 이후 설치 단계에서 대기하여 전체 완료를 확인하지 못했다. 자체 검증은 Sandbox 밖 Orchestrator Verify를 대신하지 않는다.
+- 문서 작성 중 Shell 파이프가 한글을 물음표로 치환한 것을 직접 검사에서 발견해 해당 추가 부분을 apply_patch로 복구했다. 최종 문서의 연속 물음표와 U+FFFD를 다시 검사한다.
+- 상태: IN_PROGRESS. Executor 구현 완료이며 Task 완료 승인, Commit / Push / PR / Merge는 수행하지 않았다. 실제 인증을 이용한 분석 / 생성 품질 확인은 Contract 범위 밖이며 Claude 세션의 별도 후속 작업이다.

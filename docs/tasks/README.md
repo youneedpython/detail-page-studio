@@ -23,6 +23,7 @@ Task 하나는 두 파일로 정의한다.
 | [TASK-008](TASK-008_EDITOR.md) | 상품 정보 입력 / 템플릿 / 편집기 | DONE | Orchestrator | — |
 | [TASK-009](TASK-009_PNG_EXPORT.md) | 상세페이지 PNG 내보내기 | DONE | Orchestrator | — |
 | [TASK-010](TASK-010_MVP_POLISH.md) | 1단계 MVP 정리 | DONE | Orchestrator | — |
+| [TASK-011](TASK-011_OPENAI_CLIENT.md) | OpenAI AiClient 추가 (GPT-6 Luna) | DONE | Orchestrator | DEC-011 |
 
 TASK-002 이후는 TASK-001에서 승인된 `docs/06-PLAN.md`를 기준으로 등록한다.
 

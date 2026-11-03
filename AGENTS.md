@@ -44,7 +44,7 @@
 Current Task:
 
 ```text
-TASK-010 — 1단계 MVP 정리
+TASK-011 — OpenAI AiClient 추가 (GPT-6 Luna)
 ```
 
 Status:

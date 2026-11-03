@@ -1,5 +1,5 @@
 // @vitest-environment node
-import { describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import Anthropic from "@anthropic-ai/sdk";
 import { z } from "zod";
 import { AnthropicAiClient, AI_MODEL, type AnthropicTransport } from "./anthropic-client";
@@ -10,6 +10,7 @@ import { BudgetGuard, MemoryUsageStore } from "../cost";
 
 const request = { system: "Return a title", content: [{ type: "text" as const, text: "Example" }], schema: z.object({ title: z.string() }) };
 const result = { data: { title: "Example" }, usage: { input: 100, output: 20 } };
+afterEach(() => vi.unstubAllEnvs());
 function transport(parse: ReturnType<typeof vi.fn>): AnthropicTransport {
   return { messages: { parse } } as unknown as AnthropicTransport;
 }
@@ -79,12 +80,14 @@ describe("AnthropicAiClient", () => {
 
 describe("GuardedAiClient", () => {
   it("records successful usage then blocks the next call at the limit", async () => {
+    vi.stubEnv("AI_PROVIDER", "openai");
     const fake = new FakeAiClient([result, result]);
     const store = new MemoryUsageStore();
-    const client = new GuardedAiClient(fake, new BudgetGuard(store, 0.0008));
+    const client = new GuardedAiClient(fake, new BudgetGuard(store, 0.00002));
     await client.generateStructured(request);
     await expect(client.generateStructured(request)).rejects.toMatchObject({ code: "BUDGET_EXCEEDED" });
     expect(fake.calls).toHaveLength(1);
+    vi.unstubAllEnvs();
   });
   it("does not record failed calls", async () => {
     const store = new MemoryUsageStore();

@@ -8,6 +8,8 @@ Node.js 24를 사용합니다(정확한 버전은 [.nvmrc](.nvmrc)). `npm ci` �
 
 | 변수 | 용도 / 기본값 |
 |---|---|
+| `AI_PROVIDER` | 실제 AI 제공자: `openai`(기본) 또는 `anthropic` |
+| `OPENAI_API_KEY` | OpenAI 선택 시 필요한 인증 값. 체험 모드에서는 불필요 |
 | `ANTHROPIC_API_KEY` | 실제 AI 호출에 필요한 Anthropic 인증 값. 체험 모드에서는 불필요 |
 | `AI_CLIENT` | `fake`이면 체험 모드, 그 외에는 실제 AI 사용 |
 | `AI_MONTHLY_BUDGET_USD` | 월 사용액 상한(USD), 기본 30 |
@@ -47,7 +49,7 @@ PC Chrome에서 개발자 도구 → 명령 메뉴 → `Capture full size screen
 
 ## 비용 안내
 
-실제 AI는 Anthropic 사용 비용이 발생하며 구독 CLI 로그인과 별도입니다. 서버는 `.data/usage.json`에 사용량을 기록하고 월 상한(기본 USD 30)에 도달하면 다음 요청을 거부합니다. 요청 전 누적 사용액 기준이므로 진행 중 요청 비용까지 엄격하게 제한하지는 못합니다. 파일 삭제나 여러 서버 실행 시 집계가 달라질 수 있습니다. 상한 인상은 Human 승인 대상입니다. 체험 모드는 실제 AI 비용이 발생하지 않습니다.
+실제 AI는 선택한 제공자의 API 사용 비용이 발생하며 구독 CLI 로그인과 별도입니다. 100만 토큰당 입력 / 출력 추정 단가는 OpenAI(gpt-6-luna) USD 0.10 / 0.50, Anthropic(claude-opus-5-5) USD 4 / 20이며 캐시 할인은 반영하지 않습니다. 서버는 `.data/usage.json`에 사용량을 기록하고 월 상한(기본 USD 30)에 도달하면 다음 요청을 거부합니다. 요청 전 누적 사용액 기준이므로 진행 중 요청 비용까지 엄격하게 제한하지는 못합니다. 파일 삭제나 여러 서버 실행 시 집계가 달라질 수 있습니다. 상한 인상은 Human 승인 대상입니다. 체험 모드는 실제 AI 비용이 발생하지 않습니다.
 
 ## 개발 문서
 

@@ -2,15 +2,15 @@ import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { randomUUID } from "node:crypto";
 import { AiError, type AiUsage } from "../ai/types";
+import { resolveAiProvider, type AiProvider } from "../ai/provider";
 
-export const INPUT_USD_PER_MILLION = 4;
-export const OUTPUT_USD_PER_MILLION = 20;
+const prices = { openai: { input: 0.1, output: 0.5 }, anthropic: { input: 4, output: 20 } };
 
-export function estimateCostUsd(usage: AiUsage): number {
+export function estimateCostUsd(usage: AiUsage, provider: AiProvider = resolveAiProvider()): number {
   if (![usage.input, usage.output].every((value) => Number.isFinite(value) && value >= 0)) {
     throw new Error("Invalid AI usage");
   }
-  return (usage.input * INPUT_USD_PER_MILLION + usage.output * OUTPUT_USD_PER_MILLION) / 1_000_000;
+  return (usage.input * prices[provider].input + usage.output * prices[provider].output) / 1_000_000;
 }
 
 export interface UsageStore {
