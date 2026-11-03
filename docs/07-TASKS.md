@@ -34,7 +34,7 @@ TASK-006 — 분석 입력 / 리포트 화면
 Status:
 
 ```text
-READY
+IN_PROGRESS
 ```
 
 TASK-001 ~ TASK-005는 DONE이다.
@@ -52,7 +52,7 @@ TASK-001 ~ TASK-005는 DONE이다.
 | TASK-003 | Milestone 3 | AiClient / Fake / Anthropic / 비용 Guard | DONE | TASK-002 (충족) | DEC-004 / DEC-008 |
 | TASK-004 | Milestone 3 | 이미지 업로드 검증 / 세로 분할 | DONE | TASK-003 (충족) | DEC-008 |
 | TASK-005 | Milestone 4 | 분석 엔진 + /api/analyze | DONE | TASK-003, TASK-004 (충족) | DEC-009 (Gate B) |
-| TASK-006 | Milestone 4 | 분석 입력 / 리포트 화면 | READY | TASK-005 (충족) | DEC-008 |
+| TASK-006 | Milestone 4 | 분석 입력 / 리포트 화면 | IN_PROGRESS | TASK-005 (충족) | DEC-008 |
 
 ---
 
@@ -223,7 +223,7 @@ Milestone 4. 선행: TASK-003, TASK-004.
 ### 상태
 
 ```text
-READY
+IN_PROGRESS
 ```
 
 Milestone 4. 선행: TASK-005.

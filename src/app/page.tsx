@@ -1,6 +1,12 @@
+"use client";
 import Link from "next/link";
+import { useSyncExternalStore } from "react";
+import { listReports } from "../lib/client/report-store";
+const subscribe = (notify: () => void) => { window.addEventListener("storage", notify); return () => window.removeEventListener("storage", notify); };
 
 export default function Home() {
+  const stored = useSyncExternalStore(subscribe, () => { try { return localStorage.getItem("dps:reports") ?? ""; } catch { return ""; } }, () => "");
+  const reports = stored ? listReports() : [];
   return (
     <main className="workspace">
       <header>
@@ -14,8 +20,7 @@ export default function Home() {
       </nav>
       <section className="empty" aria-labelledby="recent-heading">
         <h2 id="recent-heading">최근 작업</h2>
-        <p>아직 최근 작업이 없습니다.</p>
-        <p>분석과 제작 기능은 준비 중입니다.</p>
+        {reports.length ? <ul className="recent-list">{reports.map(report => <li key={report.id}><Link href={`/analyze/${encodeURIComponent(report.id)}`}>{report.summary.slice(0, 80)}</Link><p><time dateTime={report.createdAt}>{new Date(report.createdAt).toLocaleDateString("ko-KR")}</time> · 총점 {report.scores.reduce((sum, score) => sum + score.score, 0)} / 60점</p></li>)}</ul> : <><p>아직 최근 작업이 없습니다.</p><Link href="/analyze/sample">예시 리포트 보기</Link></>}
       </section>
     </main>
   );

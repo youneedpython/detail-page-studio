@@ -112,3 +112,16 @@
 - Run `2026-11-03T05-36-16-421Z-4b0872b7`: Review 1회차 PASS(Finding 없음), Orchestrator Verify 성공, Draft PR #5 자동 생성.
 - Claude 세션 Smoke: `AI_CLIENT=fake`로 `next start` 후 가상 이미지(860×3000, `private/` 보관) POST → 200 샘플 리포트(섹션 2, 점수 6, 체크리스트 10, sourceSlice 좌표 정상). 이미지가 아닌 파일을 image/png로 위조 → 400 INVALID_IMAGE.
 - Claude 세션 후속 수정: 조각 라벨이 1부터 세는 번호만 보여 주어 0부터 세는 `sliceIndex`와 어긋날 수 있었다. 라벨에 `sliceIndex=n`을 함께 표시하도록 바꿨다.
+
+## 2026-11-03 — TASK-006 Executor 구현
+
+- 분석 입력에 다중 파일 선택 / 드롭, 썸네일, 순서 변경 / 삭제, 10장 / 파일당 20MB 제한, 선택 상품 정보, 이용 / 캡처 안내를 구현했다. FormData 요청과 경과 시간 / 예상 단계, 취소, 오류 코드별 안내 및 이미지 유지 재시도를 제공한다.
+- 리포트 JSON은 브라우저 저장소에 최신순 최대 20개만 보관한다. 저장소 예외와 잘못된 데이터는 안전하게 처리하고 Schema로 리포트 필드만 저장한다. 원본 이미지는 메모리 Object URL만 사용하며 새 분석 시 이전 URL을 해제한다.
+- 6개 섹션의 가상 상품 예시, 리포트 요약 / 타깃 / 톤 / 총점, 원본 위치 표시와 카드 이동, 한국어 역할 / 이미지 이름, 체크리스트 10항목 / 점수 6항목 / 개선 제안 / JSON 다운로드, 최근 작업을 추가했다. 1024px 기준으로 원본과 섹션을 가로 / 세로 배치한다.
+- Executor 참고 검증: lint, typecheck 통과. Vitest 9개 파일 / 57개 Test 통과. 저장 순서 / 20개 상한 / 저장소 오류, 업로드 순서 / 삭제 / 성공 후 저장과 이동 / 오류 유지 / 취소, 예시와 없는 리포트, 최근 작업, 메모리 URL 교체를 확인했다.
+- Orchestrator 최종 검증(F-002 제공 결과): Sandbox 밖 `bash scripts/verify.sh` 전체 실행 성공. lint, typecheck, Vitest 57/57, next build 및 Harness Test가 모두 통과했다.
+- F-001 Rework: 원본의 자연 너비 / 높이로 서버 기본 분할 계획(860 / 1400 / 겹침 80)을 재구성하여 전역 조각 번호를 원본 이미지에 연결했다. 긴 원본의 후속 조각과 여러 원본, 이미지 로드 순서, 축소 좌표 및 카드 / 타임라인 스크롤 회귀 Test를 추가했다. 이 수정 이후 검증 결과는 별도로 확인한다.
+- Rework 참고 검증: lint, typecheck, Vitest 9개 파일 / 58개 Test 및 `git diff --check` 통과. 변경 문서의 연속 물음표와 U+FFFD가 없음을 직접 확인했다.
+- 화면 캡처 / 실제 390·768·1280 폭 검토는 Task Contract에 따라 Claude 세션이 수행하고 docs/images/task-006/에 추가해야 한다. Executor 허용 경로에는 이미지 폴더가 없어 캡처를 기록하지 않았다.
+- git diff --check와 변경 파일의 연속 물음표 치환 흔적 / U+FFFD 직접 검사를 통과했다.
+- Task 상태는 IN_PROGRESS로 유지한다. Executor 구현 완료는 Task 승인 / Merge 완료를 뜻하지 않는다.
