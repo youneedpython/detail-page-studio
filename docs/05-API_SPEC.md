@@ -40,7 +40,7 @@ interface AnalysisReport {
   checklist: Array<{ item: string; present: boolean; note: string }>;
   scores: Array<{ criterion: string; score: number; max: number; reason: string }>;
   suggestions: string[];
-  usage: { inputTokens: number; outputTokens: number; estimatedCostUsd: number };
+  usage: { input: number; output: number; estimatedCostUsd: number }; // 입력 / 출력 토큰 수
 }
 ```
 
@@ -73,7 +73,7 @@ interface DetailDraft {
     imageSlot: number | null;   // myImages index. 맞는 사진이 없으면 null + 촬영 가이드 표시
     imageGuide: string;         // 이 섹션에 어울리는 사진 설명
   }>;
-  usage: { inputTokens: number; outputTokens: number; estimatedCostUsd: number };
+  usage: { input: number; output: number; estimatedCostUsd: number }; // 입력 / 출력 토큰 수
 }
 ```
 

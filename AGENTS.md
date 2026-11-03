@@ -44,7 +44,7 @@
 Current Task:
 
 ```text
-TASK-002 — Project Bootstrap (Next.js / TypeScript / Test / verify 앱 단계)
+TASK-003 — AiClient / Fake / Anthropic 구현 / 비용 Guard
 ```
 
 Status:
