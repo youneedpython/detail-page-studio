@@ -45,7 +45,11 @@ else {
 $Tests = Get-ChildItem (Join-Path $Root "scripts/orchestrator") -Filter "*.test.mjs" | ForEach-Object { "scripts/orchestrator/$($_.Name)" }
 Invoke-NativeStep "Harness orchestrator test" $Root "node" "--test" @Tests
 
-# 앱 검증 단계(install / lint / test / build)는 Gate A 기술 스택 승인 후 추가한다.
+Invoke-NativeStep "Install app dependencies" $Root "npm" "ci"
+Invoke-NativeStep "App lint" $Root "npm" "run" "lint"
+Invoke-NativeStep "App typecheck" $Root "npm" "run" "typecheck"
+Invoke-NativeStep "App test" $Root "npm" "test"
+Invoke-NativeStep "App build" $Root "npm" "run" "build"
 
 Write-Host ""
 Write-Host "Local verification passed."

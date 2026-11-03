@@ -34,7 +34,7 @@ TASK-002 — Project Bootstrap (Next.js / TypeScript / Test / verify 앱 단계)
 Status:
 
 ```text
-READY
+IN_PROGRESS
 ```
 
 TASK-001은 DONE이다. DEC-002 ~ DEC-008이 2026-11-03 승인되었다.
@@ -48,7 +48,7 @@ TASK-001은 DONE이다. DEC-002 ~ DEC-008이 2026-11-03 승인되었다.
 | Task | Milestone | 작업 | 상태 | Dependency | Human Approval |
 |---|---|---|---|---|---|
 | TASK-001 | Milestone 1 | Requirements / Gate A | DONE | DEC-001 | Human 승인 2026-11-03 |
-| TASK-002 | Milestone 2 | Project Bootstrap | READY | TASK-001 (충족) | DEC-002 / DEC-008 |
+| TASK-002 | Milestone 2 | Project Bootstrap | IN_PROGRESS | TASK-001 (충족) | DEC-002 / DEC-008 |
 
 ---
 
@@ -91,7 +91,7 @@ Milestone 1. 선행: 없음.
 ### 상태
 
 ```text
-READY
+IN_PROGRESS
 ```
 
 Milestone 2. 선행: TASK-001.
