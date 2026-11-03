@@ -29,12 +29,12 @@ DONE
 
 ## 3. Current Task
 
-TASK-010 — 1단계 MVP 정리
+TASK-011 — OpenAI AiClient 추가 (GPT-6 Luna)
 
 Status:
 
 ```text
-DONE
+READY
 ```
 
 TASK-001 ~ TASK-010은 DONE이다. **1단계 MVP 완료**: 분석 → 초안 생성 → 편집 → PNG 내보내기. 다음은 실제 AI로 품질 확인(Human API Key 필요) 후 2단계(내 스토어 / 커머스 API) 계획이다.
@@ -57,6 +57,7 @@ TASK-001 ~ TASK-010은 DONE이다. **1단계 MVP 완료**: 분석 → 초안 생
 | TASK-008 | Milestone 5 | 상품 정보 입력 / 템플릿 / 편집기 | DONE | TASK-006, TASK-007 (충족) | DEC-008 |
 | TASK-009 | Milestone 6 | 상세페이지 PNG 내보내기 | DONE | TASK-008 (충족) | DEC-008 |
 | TASK-010 | Milestone 6 | 1단계 MVP 정리 | DONE | TASK-009 (충족) | DEC-008 |
+| TASK-011 | 운영 준비 | OpenAI AiClient 추가 (GPT-6 Luna) | READY | TASK-010 (충족) | DEC-011 (Human 승인) |
 
 ---
 
@@ -377,6 +378,34 @@ Milestone 6. 선행: TASK-009.
 ### 상세 Task Contract
 
 [`docs/tasks/TASK-010_MVP_POLISH.md`](tasks/TASK-010_MVP_POLISH.md), [`harness/tasks/TASK-010.json`](../harness/tasks/TASK-010.json) (공통 규칙: [`docs/tasks/COMMON.md`](tasks/COMMON.md))
+
+---
+
+## TASK-011 — OpenAI AiClient 추가 (GPT-6 Luna)
+
+### 상태
+
+```text
+READY
+```
+
+운영 준비. 선행: TASK-010.
+
+### 목적
+
+Human이 보유한 OpenAI API 인증 값으로 실제 분석 / 생성을 하도록 OpenAI AiClient(gpt-6-luna)를 추가하고 `AI_PROVIDER`로 제공자를 고른다.
+
+### Human Approval 또는 Gate
+
+- DEC-011: Human 승인 2026-11-03 (외부 API 추가 / Gate A · C, 모델 GPT-6 Luna 지정)
+
+### 완료 조건
+
+- `bash scripts/verify.sh` 성공
+
+### 상세 Task Contract
+
+[`docs/tasks/TASK-011_OPENAI_CLIENT.md`](tasks/TASK-011_OPENAI_CLIENT.md), [`harness/tasks/TASK-011.json`](../harness/tasks/TASK-011.json) (공통 규칙: [`docs/tasks/COMMON.md`](tasks/COMMON.md))
 
 ---
 

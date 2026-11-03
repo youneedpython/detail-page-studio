@@ -132,6 +132,7 @@
 - TASK-003 추가 (Claude 세션, 2026-11-03): @anthropic-ai/sdk 1.4.0, zod 4.6.7 (dependencies). Structured Output(`messages.parse` + `zodOutputFormat`)에 zod가 필요하다.
 - DEC-004 구현 메모: 서버 측 refusal fallback(`fallbacks`) 파라미터는 `messages.parse`와의 조합이 SDK 문서에 없어 TASK-003에서는 `stop_reason: refusal`을 `AI_REFUSED` 오류로 처리한다. fallback 적용은 실제 API 확인 후 후속 Task에서 재검토한다.
 - TASK-004 추가 (Claude 세션, 2026-11-03): sharp 0.35.5 (dependencies). next가 이미 선택적 의존성으로 같은 Version을 쓰고 있어 새 Native 바이너리 추가가 없다. 분석 조각은 너비 860px / 높이 1400px / 겹침 80px / JPEG 85, 기본 상한 24조각(`AI_MAX_SLICES_PER_ANALYSIS`)으로 정했다. 860px는 스마트스토어 상세 본문 폭 기준이다.
+- TASK-011 추가 (Claude 세션, 2026-11-03): openai 7.39.0 (dependencies, Apache-2.0). 최신 7.47.0은 공개 2주 미만이라 2주 이상 지난 최신 Version을 골랐다. zod는 선택적 Peer Dependency로 기존 4.6.7을 쓴다.
 - TASK-009 추가 (Claude 세션, 2026-11-03): html-to-image 1.11.13 (dependencies, MIT). 브라우저에서 DOM을 PNG로 변환한다. 서버 헤드리스 브라우저가 필요 없고 내 사진이 서버로 가지 않는다(DEC-007). 출력 폭 860px, pixelRatio 1, 높이 16000px 초과 시 섹션 경계에서 나눠 저장한다(브라우저 Canvas 크기 제한).
 
 ---
@@ -152,3 +153,14 @@
 - 결정: docs/14-GENERATION-RULES.md의 섹션 구성(참고 리포트 구조 우선, 없으면 기본 8단계), 템플릿 6종, 문구 길이 / 사실 생성 금지 / 최상급 · 효능 표현 금지, 경쟁 문구 연속 12자 유사도 검사(1회 재생성 후 경고), 사진 배치 규칙을 쓴다.
 - 이유: DEC-007(경쟁 문구 직접 인용 금지)을 기계적으로 확인할 수 있어야 하고, 표시 · 광고 관련 위험 표현을 초안 단계에서 줄이기 위해서다.
 - 재검토: 실제 생성 결과를 Human이 확인한 뒤 길이 / 임계값을 조정한다.
+
+---
+
+## DEC-011 — OpenAI(GPT-6 Luna) 연동 추가 (Gate A · C, 외부 API)
+
+- 상태: `Approved (Human 2026-11-03)`
+- 배경: Human이 보유한 AI API 인증 값이 OpenAI이다. 기존 구현은 Anthropic 전용이다.
+- 결정: AiClient에 OpenAI 구현을 추가하고 `AI_PROVIDER`(openai 기본 / anthropic)로 고른다. 모델은 Human이 지정한 `gpt-6-luna`(이미지 입력 / Structured Outputs 지원, Responses API `responses.parse` + `zodTextFormat`). Anthropic 구현은 선택지로 유지한다.
+- 비용: gpt-6-luna 입력 USD 0.10 / 출력 USD 0.50 per 1M tokens(OpenAI 모델 문서 기준, 2026-11-03 확인). 월 상한 USD 30(DEC-004)은 그대로 둔다. 비용 추정은 캐시 할인을 빼고 보수적으로 계산한다.
+- 운영: 앱은 Human PC에서만 실행하고 배포하지 않는다(Human 결정 2026-11-03). Repository는 Public을 유지한다.
+- 재검토: 실제 분석 / 생성 결과를 Human이 확인한 뒤 모델 / effort / 기준을 조정한다.

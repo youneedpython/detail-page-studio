@@ -18,7 +18,8 @@ Next.js API Route (서버)
         │
         ▼
 AiClient 인터페이스
-  ├─ AnthropicAiClient (운영, @anthropic-ai/sdk, claude-opus-5-5)
+  ├─ OpenAiAiClient (운영 기본, openai, gpt-6-luna, DEC-011)
+  ├─ AnthropicAiClient (운영 선택, @anthropic-ai/sdk, claude-opus-5-5)
   └─ FakeAiClient      (Test / verify, 고정 응답)
 ```
 
@@ -31,7 +32,7 @@ AiClient 인터페이스
 | `lib/image` | 업로드 검증, 세로 분할, 크기 축소 | 순수 함수, 단위 Test |
 | `lib/analysis` | 분석 Prompt 구성, 결과 Schema 검증, 섹션 병합 | AiClient에만 의존 |
 | `lib/generation` | 섹션 구성안 / 카피 생성 | AiClient에만 의존 |
-| `lib/ai` | AiClient 인터페이스, Anthropic 구현, Fake 구현 | SDK 사용은 이 모듈에만 |
+| `lib/ai` | AiClient 인터페이스, OpenAI / Anthropic 구현(`AI_PROVIDER`로 선택), Fake 구현 | SDK 사용은 이 모듈에만 |
 | `lib/cost` | 토큰 사용량 기록, 상한 확인 | 1단계는 서버 메모리 / 파일, 저장소 도입 시 교체 |
 | `components/templates` | 상세페이지 섹션 템플릿 | 860px 기준 |
 

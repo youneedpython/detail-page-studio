@@ -44,13 +44,13 @@
 Current Task:
 
 ```text
-TASK-010 — 1단계 MVP 정리
+TASK-011 — OpenAI AiClient 추가 (GPT-6 Luna)
 ```
 
 Status:
 
 ```text
-DONE
+READY
 ```
 
 Task 실행 시에는 다음 규칙을 따른다.
