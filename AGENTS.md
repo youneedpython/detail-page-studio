@@ -49,7 +49,7 @@ TASK-001 — Requirements / Gate A (제품 명세 · 기술 스택 · 데이터 
 Status:
 
 ```text
-READY
+IN_PROGRESS
 ```
 
 Task 실행 시에는 다음 규칙을 따른다.
