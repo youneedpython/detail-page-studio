@@ -50,7 +50,7 @@ TASK-003 — AiClient / Fake / Anthropic 구현 / 비용 Guard
 Status:
 
 ```text
-READY
+DONE
 ```
 
 Task 실행 시에는 다음 규칙을 따른다.

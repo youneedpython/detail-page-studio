@@ -72,7 +72,7 @@ export class JsonUsageStore implements UsageStore {
 export class BudgetGuard {
   constructor(
     private readonly store: UsageStore,
-    private readonly limit = Number(process.env.AI_MONTHLY_BUDGET_USD ?? 30),
+    private readonly limit = Number(process.env.AI_MONTHLY_BUDGET_USD?.trim() || 30),
     private readonly now: () => Date = () => new Date(),
   ) {
     if (!Number.isFinite(limit) || limit < 0) throw new Error("Invalid monthly AI budget");

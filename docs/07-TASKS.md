@@ -34,10 +34,10 @@ TASK-003 — AiClient / Fake / Anthropic 구현 / 비용 Guard
 Status:
 
 ```text
-IN_PROGRESS
+DONE
 ```
 
-TASK-001, TASK-002는 DONE이다.
+TASK-001 ~ TASK-003은 DONE이다. 다음은 TASK-004(이미지 업로드 검증 / 세로 분할)다.
 
 각 Task 절은 "상태 / 목적 / Human Approval 또는 Gate / 완료 조건 / 상세 Task Contract" 형식으로 적는다(형식 규칙: [`docs/tasks/COMMON.md`](tasks/COMMON.md)).
 
@@ -49,7 +49,7 @@ TASK-001, TASK-002는 DONE이다.
 |---|---|---|---|---|---|
 | TASK-001 | Milestone 1 | Requirements / Gate A | DONE | DEC-001 | Human 승인 2026-11-03 |
 | TASK-002 | Milestone 2 | Project Bootstrap | DONE | TASK-001 (충족) | DEC-002 / DEC-008 |
-| TASK-003 | Milestone 3 | AiClient / Fake / Anthropic / 비용 Guard | IN_PROGRESS | TASK-002 (충족) | DEC-004 / DEC-008 |
+| TASK-003 | Milestone 3 | AiClient / Fake / Anthropic / 비용 Guard | DONE | TASK-002 (충족) | DEC-004 / DEC-008 |
 
 ---
 
@@ -125,10 +125,13 @@ DEC-002 기술 스택으로 빈 앱 골격을 만들고 verify에 앱 검증 단
 ### 상태
 
 ```text
-IN_PROGRESS
+DONE
 ```
 
 Milestone 3. 선행: TASK-002.
+
+- AiClient 인터페이스 / AiError, Fake, Anthropic(`messages.parse` + Zod Structured Output) 구현
+- 월 비용 Guard(메모리 / JSON 파일 저장소), `createAiClient()`
 
 ### 목적
 

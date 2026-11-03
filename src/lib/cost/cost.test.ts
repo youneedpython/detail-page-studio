@@ -29,6 +29,8 @@ describe("cost", () => {
     vi.stubEnv("AI_MONTHLY_BUDGET_USD", "0");
     try {
       await expect(new BudgetGuard(new MemoryUsageStore()).assertAvailable()).rejects.toMatchObject({ code: "BUDGET_EXCEEDED" });
+      vi.stubEnv("AI_MONTHLY_BUDGET_USD", "");
+      await expect(new BudgetGuard(new MemoryUsageStore()).assertAvailable()).resolves.toBeUndefined();
       vi.stubEnv("AI_MONTHLY_BUDGET_USD", "NaN");
       expect(() => new BudgetGuard(new MemoryUsageStore())).toThrow();
     } finally { vi.unstubAllEnvs(); }
