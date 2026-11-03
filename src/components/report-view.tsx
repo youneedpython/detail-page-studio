@@ -26,7 +26,7 @@ export function ReportView({ id }: { id: string }) {
     }
   }
   function jump(index: number) { document.getElementById(`marker-${index}`)?.scrollIntoView({ behavior: "smooth", block: "center" }); }
-  function download() { const url = URL.createObjectURL(new Blob([JSON.stringify(report, null, 2)], { type: "application/json" })); const link = document.createElement("a"); link.href = url; link.download = "analysis-report.json"; link.click(); URL.revokeObjectURL(url); }
+  function download() { const url = URL.createObjectURL(new Blob([JSON.stringify(report, null, 2)], { type: "application/json" })); const link = document.createElement("a"); link.href = url; link.download = "analysis-report.json"; link.click(); setTimeout(() => URL.revokeObjectURL(url), 0); }
   return <main className="workspace report-workspace"><Link href="/">홈</Link><p className="eyebrow">{id === "sample" ? "가상 상품 예시 리포트" : "상세페이지 분석 리포트"}</p><h1>분석 리포트</h1><p>{report.summary}</p><p>추정 타깃: {report.target} · 톤: {report.tone}</p><h2>총점 {report.scores.reduce((sum, score) => sum + score.score, 0)} / 60점</h2><p>점수는 참고값이며 판매 성과를 보장하지 않습니다</p>
     <div className="report-columns"><aside className="panel"><h2>원본 캡처</h2>{!images.length && <p>원본 이미지는 저장하지 않아 새로고침 후에는 볼 수 없습니다</p>}{images.map((url, index) => <div className="source-image" key={url}>
       {/* eslint-disable-next-line @next/next/no-img-element */}

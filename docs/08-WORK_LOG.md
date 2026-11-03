@@ -125,3 +125,19 @@
 - 화면 캡처 / 실제 390·768·1280 폭 검토는 Task Contract에 따라 Claude 세션이 수행하고 docs/images/task-006/에 추가해야 한다. Executor 허용 경로에는 이미지 폴더가 없어 캡처를 기록하지 않았다.
 - git diff --check와 변경 파일의 연속 물음표 치환 흔적 / U+FFFD 직접 검사를 통과했다.
 - Task 상태는 IN_PROGRESS로 유지한다. Executor 구현 완료는 Task 승인 / Merge 완료를 뜻하지 않는다.
+
+## 2026-11-03 — TASK-006 완료 (Orchestrator + Claude 세션)
+
+- Run `2026-11-03T05-48-24-969Z-8bf85d68`: Review 2회차 PASS, Orchestrator Verify 성공, Draft PR #6 자동 생성.
+- Claude 세션 후속 처리:
+  - N-001: 예시 리포트의 `sourceSlice.index`를 기본 분할(1400px, 겹침 80px → 1320px 간격)에 맞게 계산하고, 섹션별 핵심 문구 / 이미지 분석 / 사진 가이드를 서로 다르게 채워 예시답게 보강했다.
+  - N-002: JSON 내려받기에서 Object URL 해제를 다음 Tick으로 미뤘다.
+  - Vitest 58개 통과. `AI_CLIENT=fake`로 `next start` 후 캡처.
+
+![TASK-006 분석 입력 390](images/task-006/analyze-390.png)
+![TASK-006 분석 입력 768](images/task-006/analyze-768.png)
+![TASK-006 분석 입력 1280](images/task-006/analyze-1280.png)
+![TASK-006 예시 리포트 390](images/task-006/report-390.png)
+![TASK-006 예시 리포트 768](images/task-006/report-768.png)
+![TASK-006 예시 리포트 1280](images/task-006/report-1280.png)
+![TASK-006 홈 1280](images/task-006/home-1280.png)

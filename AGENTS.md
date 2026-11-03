@@ -50,7 +50,7 @@ TASK-006 — 분석 입력 / 리포트 화면
 Status:
 
 ```text
-READY
+DONE
 ```
 
 Task 실행 시에는 다음 규칙을 따른다.
