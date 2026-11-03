@@ -29,15 +29,15 @@ DONE
 
 ## 3. Current Task
 
-TASK-006 — 분석 입력 / 리포트 화면
+TASK-007 — 생성 엔진 + /api/generate
 
 Status:
 
 ```text
-DONE
+READY
 ```
 
-TASK-001 ~ TASK-006은 DONE이다. 분석 기능(1단계 전반부)이 동작한다. 다음은 TASK-007(생성 엔진 + `/api/generate`)이다.
+TASK-001 ~ TASK-006은 DONE이다. 분석 기능(1단계 전반부)이 동작한다.
 
 각 Task 절은 "상태 / 목적 / Human Approval 또는 Gate / 완료 조건 / 상세 Task Contract" 형식으로 적는다(형식 규칙: [`docs/tasks/COMMON.md`](tasks/COMMON.md)).
 
@@ -53,6 +53,7 @@ TASK-001 ~ TASK-006은 DONE이다. 분석 기능(1단계 전반부)이 동작한
 | TASK-004 | Milestone 3 | 이미지 업로드 검증 / 세로 분할 | DONE | TASK-003 (충족) | DEC-008 |
 | TASK-005 | Milestone 4 | 분석 엔진 + /api/analyze | DONE | TASK-003, TASK-004 (충족) | DEC-009 (Gate B) |
 | TASK-006 | Milestone 4 | 분석 입력 / 리포트 화면 | DONE | TASK-005 (충족) | DEC-008 |
+| TASK-007 | Milestone 5 | 생성 엔진 + /api/generate | READY | TASK-003, TASK-005 (충족) | DEC-010 (Gate B) |
 
 ---
 
@@ -246,6 +247,35 @@ Milestone 4. 선행: TASK-005.
 ### 상세 Task Contract
 
 [`docs/tasks/TASK-006_ANALYSIS_UI.md`](tasks/TASK-006_ANALYSIS_UI.md), [`harness/tasks/TASK-006.json`](../harness/tasks/TASK-006.json) (공통 규칙: [`docs/tasks/COMMON.md`](tasks/COMMON.md))
+
+---
+
+## TASK-007 — 생성 엔진 + /api/generate
+
+### 상태
+
+```text
+READY
+```
+
+Milestone 5. 선행: TASK-003, TASK-005.
+
+### 목적
+
+내 상품 정보와 참고 리포트로 상세페이지 초안을 생성하는 엔진과 API Route를 만든다.
+
+### Human Approval 또는 Gate
+
+- Gate B 생성 규칙: DEC-010 (docs/14-GENERATION-RULES.md, DEC-008 위임으로 Claude 세션 결정)
+
+### 완료 조건
+
+- `bash scripts/verify.sh` 성공
+- `AI_CLIENT=fake`에서 `/api/generate`가 샘플 초안을 반환
+
+### 상세 Task Contract
+
+[`docs/tasks/TASK-007_GENERATION_ENGINE.md`](tasks/TASK-007_GENERATION_ENGINE.md), [`harness/tasks/TASK-007.json`](../harness/tasks/TASK-007.json) (공통 규칙: [`docs/tasks/COMMON.md`](tasks/COMMON.md))
 
 ---
 

@@ -67,7 +67,7 @@ interface DetailDraft {
   sections: Array<{
     id: string;
     role: SectionRole;
-    template: string;           // components/templates 키
+    template: 'hero' | 'image-text' | 'feature-list' | 'spec-table' | 'notice' | 'cta'; // docs/14 3절
     headline: string;
     body: string;
     bullets: string[];
@@ -75,9 +75,11 @@ interface DetailDraft {
     imageGuide: string;         // 이 섹션에 어울리는 사진 설명
   }>;
   usage: { input: number; output: number; estimatedCostUsd: number }; // 입력 / 출력 토큰 수
+  warnings: string[];           // 경쟁 문구 유사 / 길이 초과 / 금지 표현 안내 (docs/14)
 }
 ```
 
+- 생성 규칙: docs/14-GENERATION-RULES.md
 - 오류: 400 `INVALID_REQUEST`, 429 `BUDGET_EXCEEDED`, 502 / 504 동일
 
 ## 공통 오류 형식

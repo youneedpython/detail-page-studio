@@ -19,6 +19,7 @@ Task 하나는 두 파일로 정의한다.
 | [TASK-004](TASK-004_IMAGE_SLICING.md) | 이미지 업로드 검증 / 세로 분할 | DONE | Orchestrator | — |
 | [TASK-005](TASK-005_ANALYSIS_ENGINE.md) | 분석 엔진 + /api/analyze | DONE | Orchestrator | DEC-009 |
 | [TASK-006](TASK-006_ANALYSIS_UI.md) | 분석 입력 / 리포트 화면 | DONE | Orchestrator | — |
+| [TASK-007](TASK-007_GENERATION_ENGINE.md) | 생성 엔진 + /api/generate | READY | Orchestrator | DEC-010 |
 
 TASK-002 이후는 TASK-001에서 승인된 `docs/06-PLAN.md`를 기준으로 등록한다.
 

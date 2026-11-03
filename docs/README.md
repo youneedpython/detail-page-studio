@@ -13,6 +13,7 @@
 | [11-MULTI-AGENT-ORCHESTRATION-POLICY](11-MULTI-AGENT-ORCHESTRATION-POLICY.md) | Agent 역할 / Gate 정책 |
 | [12-ORCHESTRATOR-DESIGN](12-ORCHESTRATOR-DESIGN.md) | Orchestrator 설계 / 실행 방법 |
 | [13-ANALYSIS-CRITERIA](13-ANALYSIS-CRITERIA.md) | 분석 기준 (섹션 / 체크리스트 / 점수, Gate B) |
+| [14-GENERATION-RULES](14-GENERATION-RULES.md) | 생성 규칙 (섹션 / 템플릿 / 문구 / 유사도, Gate B) |
 | [tasks/](tasks/README.md) | Task Contract |
 
 `02`, `10`번은 MoodFit 전용 문서였으므로 비워 두었다. 필요하면 새 주제로 사용한다.
