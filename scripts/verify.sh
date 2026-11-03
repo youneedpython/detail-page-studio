@@ -24,6 +24,11 @@ fi
 
 run_step "Harness orchestrator test" sh -c "cd '$ROOT_DIR' && node --test scripts/orchestrator/*.test.mjs"
 
-# 앱 검증 단계(install / lint / test / build)는 Gate A 기술 스택 승인 후 추가한다.
+cd "$ROOT_DIR"
+run_step "Install app dependencies" npm ci
+run_step "App lint" npm run lint
+run_step "App typecheck" npm run typecheck
+run_step "App test" npm test
+run_step "App build" npm run build
 
 printf '\nLocal verification passed.\n'

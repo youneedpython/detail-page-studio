@@ -1,6 +1,9 @@
 # Node
 node_modules/
 dist/
+.next/
+# Next.js가 dev / build에서 생성하는 타입 선언은 추적하지 않는다.
+next-env.d.ts
 *.tsbuildinfo
 
 # IDE / Editor

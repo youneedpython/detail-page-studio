@@ -50,7 +50,7 @@ TASK-002 — Project Bootstrap (Next.js / TypeScript / Test / verify 앱 단계)
 Status:
 
 ```text
-READY
+DONE
 ```
 
 Task 실행 시에는 다음 규칙을 따른다.

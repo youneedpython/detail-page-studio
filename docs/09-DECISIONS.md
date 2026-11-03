@@ -118,3 +118,14 @@
   - 문서 Task는 `git diff --check`와 Contract / Schema 검증 성공
 - 유지하는 금지: Force Push / History Rewrite / `main` 직접 Push / Ruleset Bypass / Auto Merge. Codex Executor와 Orchestrator Script는 여전히 Merge하지 않는다.
 - 예외(여전히 Human 확인): 비용이 드는 외부 Resource 생성(배포 등), 유료 API 비용 상한 인상, Repository 공개 범위 변경, Secret 값 입력.
+
+---
+
+## DEC-002 부속 — TASK-002 설치 Version (Gate C, DEC-008에 따라 Claude 세션 결정)
+
+- 상태: `Approved (Claude 세션, 2026-11-03)`
+- dependencies: next 16.4.4, react 19.3.1, react-dom 19.3.1
+- devDependencies: typescript 6.0.3, @types/node 24.19.2, @types/react 19.3.0, @types/react-dom 19.3.0, eslint 10.14.0, eslint-config-next 16.4.4, tailwindcss 4.3.4, @tailwindcss/postcss 4.3.4, vitest 5.1.0, @vitejs/plugin-react 6.2.1, jsdom 30.1.3, @testing-library/react 16.3.3, @testing-library/jest-dom 7.0.1
+- 판단: TypeScript는 최신 7.0.2 대신 6.0.3을 선택했다. 7.x는 새 네이티브 컴파일러라 Next.js / ESLint 도구와의 호환을 아직 확인하지 않았다. @types/node는 런타임(Node 24)에 맞춰 24.x를 선택했다.
+- `npm audit`: 개발 의존성에서 moderate 15건이 보고되었다. 런타임 노출이 없는 도구 계층이며 `--force` 수정은 Major 변경을 유발하므로 보류하고 후속 Task에서 재확인한다.
+- TASK-002 Executor 확인: 승인된 `package.json`과 `package-lock.json`의 직접 의존성 Version이 모두 일치한다. Dependency와 Lockfile은 변경하지 않았으며, 실제 설치와 앱 검증은 Orchestrator 실행 결과로 확인한다.
