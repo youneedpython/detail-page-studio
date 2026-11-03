@@ -1,0 +1,43 @@
+{
+  "id": "TASK-002",
+  "title": "Project Bootstrap (Next.js / TypeScript / Test / verify 앱 단계)",
+  "task_file": "docs/tasks/TASK-002_PROJECT_BOOTSTRAP.md",
+  "allowed_paths": [
+    "src/",
+    "public/",
+    "package.json",
+    "package-lock.json",
+    "tsconfig.json",
+    "next.config.ts",
+    "next-env.d.ts",
+    "eslint.config.mjs",
+    "postcss.config.mjs",
+    "vitest.config.ts",
+    "vitest.setup.ts",
+    "scripts/verify.sh",
+    "scripts/verify.ps1",
+    ".gitignore",
+    "README.md",
+    "docs/07-TASKS.md",
+    "docs/08-WORK_LOG.md",
+    "docs/09-DECISIONS.md",
+    "prompts/"
+  ],
+  "forbidden_paths": [
+    "harness/",
+    "scripts/orchestrator/",
+    ".github/",
+    "docs/tasks/",
+    "docs/11-MULTI-AGENT-ORCHESTRATION-POLICY.md",
+    "docs/12-ORCHESTRATOR-DESIGN.md",
+    "AGENTS.md",
+    ".nvmrc",
+    ".env.example",
+    ".env.local"
+  ],
+  "verify": [
+    { "command": ["bash", "scripts/verify.sh"], "cwd": "." },
+    { "command": ["git", "diff", "--check"], "cwd": "." }
+  ],
+  "max_review_cycles": 3
+}

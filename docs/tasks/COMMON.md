@@ -9,7 +9,8 @@
 | Executor | Codex | 승인된 Task 범위 안에서 구현 / 테스트 / 문서화. Working Tree만 수정한다 |
 | Reviewer | Claude | Read-only. Diff, Task Contract, Verification 결과, 승인된 Decision을 검토하고 Verdict를 낸다 |
 | Orchestrator | `scripts/orchestrator/run.mjs` | 실행 순서, Deterministic Verification, Review 호출, (승인 시) Git / PR 작업을 제어한다 |
-| Human | 사용자 | Gate 결정, 로그인(GitHub), PR 승인 / Squash Merge |
+| Claude Code 세션 | Claude | DEC-008 위임: Gate 결정 기록, Push / PR / Squash Merge, Orchestrator 실행 |
+| Human | 사용자 | 방향 결정, 위임 예외 항목, 로그인(GitHub) |
 
 Reviewer Verdict는 `PASS`, `CHANGES_REQUIRED`, `HUMAN_REQUIRED`, `BLOCKED`만 사용한다.
 

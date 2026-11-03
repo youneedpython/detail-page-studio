@@ -15,7 +15,8 @@
 | Codex / Executor | Human이 실행 지시한 승인 Task의 허용 경로 Working Tree 수정 / Test / 문서화 / Rework | 임의 Task 시작 / 범위 확대 / Gate 결정 / 독자 Commit / Push / PR / Merge |
 | Claude / Reviewer | 완전 Read-only로 Task Contract / 실제 Diff / Verification / 승인 Decision 검토, Verdict / Finding 작성 | Source / 문서 / Git 수정, 배포, 승인 대행, 임의 실행 도구 사용 |
 | Orchestrator | 승인된 실행 순서 / Verification / 자동 Review / 반복 횟수 / Gate 정지 제어 | 권한 확대 / Gate 우회 / 무한 반복 / 승인 전 Git·배포 자동화 / Merge |
-| Human | Task 실행 지시 / 정책·Gate 결정 / 로그인 / PR Squash Merge / 최종 Review | AI PASS를 Human Approval로 간주하지 않음 |
+| Claude Code 세션 | DEC-008 위임 범위의 Gate 결정 기록 / Push / PR / Squash Merge / Orchestrator 실행 | Force Push / Ruleset Bypass / Auto Merge / 위임 예외 항목 결정 |
+| Human | 방향 결정 / 위임 예외 항목(비용 Resource, 비용 상한 인상, 공개 범위, Secret) / 로그인 / 최종 Review | — |
 
 명세 / 계획 / Gate 문서 작업(TASK-001 등 Orchestrator 실행 전 단계)은 Human 지시에 따라 Claude Code 세션이 수행할 수 있다. 이때도 Human 승인 없이 Decision을 확정하지 않는다.
 
@@ -38,12 +39,12 @@
 
 ## 3. 현재 단계 규칙
 
-현재 단계는 **명세 / Gate 결정 단계**이다. 기술 스택, 데이터 수집 방식, 외부 API 연동은 아직 승인되지 않았다.
+현재 단계는 **TASK Execution 단계**이다. DEC-002 ~ DEC-008이 승인되었다. Task 실행 지시와 Merge는 DEC-008에 따라 Claude Code 세션이 수행한다.
 
 Current Task:
 
 ```text
-TASK-001 — Requirements / Gate A (제품 명세 · 기술 스택 · 데이터 수집 방식 결정)
+TASK-002 — Project Bootstrap (Next.js / TypeScript / Test / verify 앱 단계)
 ```
 
 Status:
@@ -215,15 +216,16 @@ prompts/  → Human이 Agent에게 내린 주요 실행 지시
 - Agent(Codex / Claude CLI)는 OpenAI / Anthropic API Key를 사용하지 않는다. Human 로그인 후 구독 로그인을 공유하는 로컬 CLI로 진행한다. 앱이 런타임에 호출하는 LLM API Key는 이와 별개이며 외부 연동 Gate 승인 후 환경변수로만 전달한다.
 - GitHub 로그인은 Human이 수행한다. 로그인 만료 / 미확인 시 재로그인 없이 `HUMAN_REQUIRED`로 정지한다.
 - Run 기록은 Git 비추적 `.harness/runs/<run-id>/`에 저장하며 Prompt / 결과 / stdout / stderr / Verify Log는 저장 전 Redaction한다. 입력 / 명령 인자에 Secret 값을 넣지 않는다.
-- 수집한 타 스토어 데이터와 생성 결과물에 포함된 이미지 / 문구의 저작권 · 이용 범위는 승인된 Decision 범위 안에서만 저장 / 사용한다.
+- 다른 판매자의 상세페이지는 분석 용도로만 사용하고, 제작 결과물에는 사용자 본인 이미지만 쓴다(DEC-007).
+- 실제 상품 이미지, 경쟁 상세페이지 캡처, 생성 결과물 이미지는 Repository에 Commit하지 않는다. 로컬에서는 Git 비추적 `private/`에 둔다. Test Fixture와 `docs/images/` 캡처에는 가상 이미지 / 더미 상품만 쓴다.
 
 ---
 
 ## 12. Git / Commit 규칙
 
 - Task 하나 = Task Branch 하나 = PR 하나. Branch 이름은 `task/TASK-0XX-<짧은-이름>`이다.
-- `main` 직접 Push와 Force Push / History Rewrite를 금지한다. PR + Remote CI(`verify`) / Claude PASS / 필요한 Gate 충족 후 Human이 Squash Merge한다. main에는 Task당 Commit 1개를 남긴다.
-- Task 완료 승인 = Human의 PR Squash Merge이다. Agent / Orchestrator Merge와 Auto Merge를 금지한다.
+- `main` 직접 Push와 Force Push / History Rewrite를 금지한다. PR + Remote CI(`verify`) / Claude PASS / 필요한 Gate 충족 후 Squash Merge한다. main에는 Task당 Commit 1개를 남긴다.
+- Task 완료 승인 = PR Squash Merge이다. DEC-008에 따라 Claude Code 세션이 Merge 조건 확인 후 수행한다. Codex / Orchestrator Script의 Merge와 Auto Merge는 금지한다.
 - Orchestrator Git 자동화(Stage / Commit / Push / Draft PR)는 `harness/config.local.json`의 `git_automation: true`일 때만 동작한다. GitHub Remote / Branch Ruleset 구성과 Human 승인 전에는 `false`를 유지하고 Human 또는 Claude 세션이 Human 지시 후 Git 작업을 수행한다.
 - 자동화가 켜지면 Deterministic Verification 성공 + Executor DONE + Claude PASS + 미해결 Human Gate 없음일 때만 Git 작업을 수행한다. Stage는 allowed_paths 안의 파일을 개별 추가하며 `git add .`와 forbidden_paths / Secret 파일 Stage를 금지한다.
 - Draft PR 본문에는 Task ID, Verification, Review Verdict, Human Gate 여부, Codex / Claude Co-author Trailer를 포함한다.
@@ -239,7 +241,7 @@ TASKS / WORK_LOG 갱신 / 필요한 Human Gate
   ↓
 승인된 역할의 Commit / Push / PR
   ↓
-Remote CI / Human Review / Human PR Squash Merge
+Remote CI / Claude 세션 Squash Merge (DEC-008)
 ```
 
 Commit 형식은 `docs:` / `feat:` / `test:` / `ci:` / `chore:` + 한국어 요약 + `- ` 목록을 사용한다. Codex 작업이 포함되면 다음 Trailer를 포함한다.

@@ -29,7 +29,7 @@ DONE
 
 ## 3. Current Task
 
-TASK-001 — Requirements / Gate A (제품 명세 · 기술 스택 · 데이터 수집 방식 결정)
+TASK-002 — Project Bootstrap (Next.js / TypeScript / Test / verify 앱 단계)
 
 Status:
 
@@ -37,7 +37,7 @@ Status:
 READY
 ```
 
-Harness 뼈대는 준비되었다(DEC-001). 앱 기술 스택과 외부 연동은 아직 결정되지 않았다.
+TASK-001은 DONE이다. DEC-002 ~ DEC-008이 2026-11-03 승인되었다.
 
 각 Task 절은 "상태 / 목적 / Human Approval 또는 Gate / 완료 조건 / 상세 Task Contract" 형식으로 적는다(형식 규칙: [`docs/tasks/COMMON.md`](tasks/COMMON.md)).
 
@@ -47,7 +47,8 @@ Harness 뼈대는 준비되었다(DEC-001). 앱 기술 스택과 외부 연동�
 
 | Task | Milestone | 작업 | 상태 | Dependency | Human Approval |
 |---|---|---|---|---|---|
-| TASK-001 | Milestone 1 | Requirements / Gate A | READY | DEC-001 | Human 지시 2026-11-03 |
+| TASK-001 | Milestone 1 | Requirements / Gate A | DONE | DEC-001 | Human 승인 2026-11-03 |
+| TASK-002 | Milestone 2 | Project Bootstrap | READY | TASK-001 (충족) | DEC-002 / DEC-008 |
 
 ---
 
@@ -56,10 +57,14 @@ Harness 뼈대는 준비되었다(DEC-001). 앱 기술 스택과 외부 연동�
 ### 상태
 
 ```text
-READY
+DONE
 ```
 
 Milestone 1. 선행: 없음.
+
+- DEC-002 ~ DEC-005 권장안, DEC-006(분석 순서) 기록
+- docs/01 · 03 · 04 · 05 · 06 초안
+- TASK-002 Task 문서 / JSON Contract
 
 ### 목적
 
@@ -81,6 +86,35 @@ Milestone 1. 선행: 없음.
 
 ---
 
+## TASK-002 — Project Bootstrap (Next.js / TypeScript / Test / verify 앱 단계)
+
+### 상태
+
+```text
+READY
+```
+
+Milestone 2. 선행: TASK-001.
+
+### 목적
+
+DEC-002 기술 스택으로 빈 앱 골격을 만들고 verify에 앱 검증 단계를 추가한다.
+
+### Human Approval 또는 Gate
+
+- DEC-002 승인, 패키지 Version 목록 Gate C
+
+### 완료 조건
+
+- `bash scripts/verify.sh` 성공 (Harness Test + lint + typecheck + test + build)
+- 승인 목록 밖 Dependency 없음
+
+### 상세 Task Contract
+
+[`docs/tasks/TASK-002_PROJECT_BOOTSTRAP.md`](tasks/TASK-002_PROJECT_BOOTSTRAP.md), [`harness/tasks/TASK-002.json`](../harness/tasks/TASK-002.json) (공통 규칙: [`docs/tasks/COMMON.md`](tasks/COMMON.md))
+
+---
+
 ## 5. Human Approval 필요 Task
 
-- TASK-001: DEC-002 ~ DEC-005 Human 결정
+- 없음 (DEC-008 위임 예외 항목 발생 시 Human 확인)

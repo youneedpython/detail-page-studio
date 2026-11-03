@@ -45,7 +45,7 @@
 
 ## 5. Human 승인 채널
 
-- Task 완료 승인 = Human이 PR을 Squash Merge하는 행위다. Agent / Orchestrator는 Merge하지 않는다.
+- Task 완료 승인 = PR Squash Merge다. DEC-008(2026-11-03)에 따라 Claude Code 세션이 Merge 조건(CI `verify` 성공, Reviewer PASS 등) 확인 후 수행한다. Codex / Orchestrator Script는 Merge하지 않는다.
 - Agent와 Human이 같은 GitHub 계정의 `gh` 로그인을 사용하므로 Required approvals는 0으로 두고 Required status check(`verify`)로 CI를 강제한다. Auto Merge는 비활성으로 유지한다.
 - 정지된 Run은 `resume-approval.json`으로만 재개한다(형식: docs/12).
 
@@ -58,7 +58,7 @@
 ## 7. Git / Merge
 
 - Task 하나 = Branch 하나 = PR 하나. Branch 이름은 `task/TASK-0XX-<짧은-이름>`.
-- `main` 직접 Push / Force Push / History Rewrite / Merge / Auto Merge를 금지한다.
+- `main` 직접 Push / Force Push / History Rewrite / Auto Merge를 금지한다. Merge는 DEC-008 위임 범위의 Claude Code 세션만 수행한다.
 - Orchestrator Git 자동화는 `git_automation: true`에서만 동작하며, Deterministic Verification 성공 + Executor DONE + Claude PASS + 미해결 Human Gate 없음일 때만 allowed_paths 개별 Stage / Commit / Push / Draft PR을 수행한다.
 - `git_automation`을 켜기 전 필요 조건: GitHub Remote, `main` Branch Ruleset(Force Push 금지 / PR 필수 / Required check `verify` / Squash 전용 / Bypass 없음), Human 승인.
 - Commit 형식은 `docs:` / `feat:` / `test:` / `ci:` / `chore:` + 한국어 요약 + `- ` 목록이며, Codex 작업이 포함되면 Codex Co-author Trailer를 붙인다.
