@@ -34,10 +34,10 @@ TASK-002 — Project Bootstrap (Next.js / TypeScript / Test / verify 앱 단계)
 Status:
 
 ```text
-IN_PROGRESS
+DONE
 ```
 
-TASK-001은 DONE이다. DEC-002 ~ DEC-008이 2026-11-03 승인되었다.
+TASK-001, TASK-002는 DONE이다. 다음 Task(TASK-003)는 docs/06-PLAN.md 순서대로 등록한다.
 
 각 Task 절은 "상태 / 목적 / Human Approval 또는 Gate / 완료 조건 / 상세 Task Contract" 형식으로 적는다(형식 규칙: [`docs/tasks/COMMON.md`](tasks/COMMON.md)).
 
@@ -48,7 +48,7 @@ TASK-001은 DONE이다. DEC-002 ~ DEC-008이 2026-11-03 승인되었다.
 | Task | Milestone | 작업 | 상태 | Dependency | Human Approval |
 |---|---|---|---|---|---|
 | TASK-001 | Milestone 1 | Requirements / Gate A | DONE | DEC-001 | Human 승인 2026-11-03 |
-| TASK-002 | Milestone 2 | Project Bootstrap | IN_PROGRESS | TASK-001 (충족) | DEC-002 / DEC-008 |
+| TASK-002 | Milestone 2 | Project Bootstrap | DONE | TASK-001 (충족) | DEC-002 / DEC-008 |
 
 ---
 
@@ -91,10 +91,14 @@ Milestone 1. 선행: 없음.
 ### 상태
 
 ```text
-IN_PROGRESS
+DONE
 ```
 
 Milestone 2. 선행: TASK-001.
+
+- Next.js App Router 홈 / 분석 / 제작 자리 표시 화면, Tailwind, ESLint, Vitest 설정
+- verify에 npm ci / lint / typecheck / test / build 단계 추가
+- 화면 캡처 Script(`scripts/capture-screens.mjs`)
 
 ### 목적
 

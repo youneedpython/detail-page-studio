@@ -40,5 +40,18 @@
 - 승인된 직접 의존성 17개의 Version이 Lockfile과 일치함을 확인했다. Dependency / Lockfile 변경 없음.
 - Verification: `bash scripts/verify.sh` 실행에서 Harness Test 101개 통과 출력 확인. Executor가 실행 중 중단 입력을 보내 전체 Script는 exit 1로 종료했으며 전체 검증 성공으로 처리하지 않는다.
 - 추가 설치 확인: `npm ci --offline --ignore-scripts --fetch-retries=0`은 npm 캐시에 eslint Registry 응답이 없어 ENOTCACHED로 종료했다. Sandbox의 네트워크 제한과 미설치 의존성으로 앱 lint / typecheck / test / build 및 dev 경로 확인은 실행하지 못했다. 승인된 ESLint 10에 대한 하위 eslint-plugin-import의 peer 범위 경고도 출력되었으며 실제 호환성은 Orchestrator 검증에서 확인해야 한다.
-- Task는 IN_PROGRESS 유지. Executor 구현 완료는 검증 성공이나 완료 승인을 대신하지 않는다.
-- 인계: Claude 또는 Human이 허용 경로 밖 `docs/images/task-002/`에 390 / 768 / 1280 홈 캡처를 저장하고 이 Verification에 Markdown 이미지로 연결한다. 캡처는 아직 생성되지 않았다.
+- (Executor 기록은 Sandbox 안의 중간 상태다. 최종 결과는 아래 Orchestrator / Claude 세션 기록을 따른다.)
+
+## 2026-11-03 — TASK-002 Verification / 완료 (Orchestrator + Claude 세션)
+
+- Orchestrator Run `2026-11-03T04-49-37-630Z-a81c8ebe`: Sandbox 밖 `bash scripts/verify.sh` 성공 — Harness 101/101, npm ci, lint(0 error), typecheck, vitest 1/1, next build(`/`, `/analyze`, `/create` 정적 생성). Claude Reviewer 1회차 PASS(비차단 Finding 6건). Draft PR #2 자동 생성.
+- Claude 세션 후속 처리(Finding 반영):
+  - F-002: `postcss.config.mjs` 익명 default export 경고 해소.
+  - 추가 발견: ESLint / TypeScript가 `.harness/workspaces/`의 Worktree 사본까지 검사해 같은 경고가 중복되었다. `eslint.config.mjs` ignore와 `tsconfig.json` exclude에 `.harness`를 추가했다.
+  - F-003(vitest 설정 ESM 경고), F-004(eslint-config-next 하위 Plugin의 ESLint 10 peer 경고), F-005(예시 리포트 링크)는 후속 Task에서 처리한다.
+  - `scripts/capture-screens.mjs` 추가: Chrome DevTools Protocol로 정확한 폭(390 / 768 / 1280)의 화면을 캡처한다(외부 Dependency 없음). headless Chrome의 `--window-size`는 500px 미만 폭에서 화면이 잘리는 문제가 있어 직접 작성했다.
+- `npm run start` 후 `/`, `/analyze`, `/create` 모두 HTTP 200 확인.
+
+![TASK-002 Home 390](images/task-002/home-390.png)
+![TASK-002 Home 768](images/task-002/home-768.png)
+![TASK-002 Home 1280](images/task-002/home-1280.png)
