@@ -26,7 +26,15 @@ interface AnalysisReport {
     role: SectionRole;
     title: string;
     keyCopy: string[];          // 핵심 문구 (OCR)
+    copyPattern: string;        // 문구 전개 방식 (예: 질문형 후킹 → 수치 근거)
     appealPoints: string[];     // 소구 포인트
+    visuals: Array<{
+      kind: 'model' | 'product_cutout' | 'lifestyle' | 'detail_closeup'
+          | 'infographic' | 'comparison' | 'certificate' | 'review_capture' | 'other';
+      composition: string;      // 구도 / 배치 / 색감
+      purpose: string;          // 이 이미지가 전달하려는 메시지
+    }>;
+    myImageGuide: string;       // 내 상품으로 이 섹션을 만들 때 필요한 사진 촬영 / 준비 가이드
     sourceSlice: { index: number; top: number; bottom: number }; // 원본 위치(px)
   }>;
   checklist: Array<{ item: string; present: boolean; note: string }>;
@@ -43,10 +51,12 @@ interface AnalysisReport {
 ```ts
 interface GenerateRequest {
   product: { name: string; features: string[]; target?: string; priceRange?: string };
-  imageCount: number;           // 업로드한 상품 사진 수 (사진 자체는 브라우저에 보관)
+  myImages: Array<{ index: number; description: string }>; // 내 사진 목록과 설명 (사진 파일은 브라우저에 보관, 서버로 보내지 않음)
   referenceReport?: Pick<AnalysisReport, 'sections' | 'tone' | 'target'>;
 }
 ```
+
+- 참고 리포트는 **구조 / 전개 방식 / 소구 전략**으로만 사용한다. 생성 문구가 참고 리포트의 `keyCopy`를 그대로 옮기지 않도록 Prompt로 지시하고, 서버에서 유사도 검사(긴 공통 구간 탐지)로 한 번 더 걸러낸다(DEC-007).
 
 - 응답 200: `DetailDraft`
 
@@ -60,7 +70,8 @@ interface DetailDraft {
     headline: string;
     body: string;
     bullets: string[];
-    imageSlot: number | null;   // 상품 사진 index
+    imageSlot: number | null;   // myImages index. 맞는 사진이 없으면 null + 촬영 가이드 표시
+    imageGuide: string;         // 이 섹션에 어울리는 사진 설명
   }>;
   usage: { inputTokens: number; outputTokens: number; estimatedCostUsd: number };
 }

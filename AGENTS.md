@@ -215,7 +215,8 @@ prompts/  → Human이 Agent에게 내린 주요 실행 지시
 - Agent(Codex / Claude CLI)는 OpenAI / Anthropic API Key를 사용하지 않는다. Human 로그인 후 구독 로그인을 공유하는 로컬 CLI로 진행한다. 앱이 런타임에 호출하는 LLM API Key는 이와 별개이며 외부 연동 Gate 승인 후 환경변수로만 전달한다.
 - GitHub 로그인은 Human이 수행한다. 로그인 만료 / 미확인 시 재로그인 없이 `HUMAN_REQUIRED`로 정지한다.
 - Run 기록은 Git 비추적 `.harness/runs/<run-id>/`에 저장하며 Prompt / 결과 / stdout / stderr / Verify Log는 저장 전 Redaction한다. 입력 / 명령 인자에 Secret 값을 넣지 않는다.
-- 수집한 타 스토어 데이터와 생성 결과물에 포함된 이미지 / 문구의 저작권 · 이용 범위는 승인된 Decision 범위 안에서만 저장 / 사용한다.
+- 다른 판매자의 상세페이지는 분석 용도로만 사용하고, 제작 결과물에는 사용자 본인 이미지만 쓴다(DEC-007).
+- 실제 상품 이미지, 경쟁 상세페이지 캡처, 생성 결과물 이미지는 Repository에 Commit하지 않는다. 로컬에서는 Git 비추적 `private/`에 둔다. Test Fixture와 `docs/images/` 캡처에는 가상 이미지 / 더미 상품만 쓴다.
 
 ---
 

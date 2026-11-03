@@ -26,6 +26,11 @@ coverage/
 # Archive
 *.zip
 
+# Real product images / competitor captures / exports (DEC-007)
+private/
+uploads/
+exports/
+
 # Local Orchestrator
 .harness/runs/
 .harness/workspaces/
