@@ -44,7 +44,7 @@
 Current Task:
 
 ```text
-TASK-006 — 분석 입력 / 리포트 화면
+TASK-007 — 생성 엔진 + /api/generate
 ```
 
 Status:
